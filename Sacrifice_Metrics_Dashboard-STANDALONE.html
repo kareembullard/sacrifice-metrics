@@ -1,0 +1,2072 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&amp;family=Inter:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Sacrifice Metrics Dashboard
+  </title>
+  <style>
+/*
+ * Converted to ProjectSuite CSS Architecture
+ * Date: 2025-11-29 04:36:36
+ * Bootstrap/utility classes mapped to ProjectSuite equivalents
+ * Original backed up to: ./asset_backups
+ */
+
+
+:root {
+  /* Colors */
+  --color-background: rgba(252, 252, 249, 1);
+  --color-surface: rgba(255, 255, 253, 1);
+  --color-text: rgba(19, 52, 59, 1);
+  --color-text-secondary: rgba(98, 108, 113, 1);
+  --color-primary: rgba(33, 128, 141, 1);
+  --color-primary-hover: rgba(29, 116, 128, 1);
+  --color-primary-active: rgba(26, 104, 115, 1);
+  --color-secondary: rgba(94, 82, 64, 0.12);
+  --color-secondary-hover: rgba(94, 82, 64, 0.2);
+  --color-secondary-active: rgba(94, 82, 64, 0.25);
+  --color-border: rgba(94, 82, 64, 0.2);
+  --color-btn-primary-text: rgba(252, 252, 249, 1);
+  --color-card-border: rgba(94, 82, 64, 0.12);
+  --color-card-border-inner: rgba(94, 82, 64, 0.12);
+  --color-error: rgba(192, 21, 47, 1);
+  --color-success: rgba(33, 128, 141, 1);
+  --color-warning: rgba(168, 75, 47, 1);
+  --color-info: rgba(98, 108, 113, 1);
+  --color-focus-ring: rgba(33, 128, 141, 0.4);
+  --color-select-caret: rgba(19, 52, 59, 0.8);
+
+  /* Common style patterns */
+  --focus-ring: 0 0 0 3px var(--color-focus-ring);
+  --focus-outline: 2px solid var(--color-primary);
+  --status-bg-opacity: 0.15;
+  --status-border-opacity: 0.25;
+  --select-caret-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23134252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  --select-caret-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+
+  /* RGB versions for opacity control */
+  --color-success-rgb: 33, 128, 141;
+  --color-error-rgb: 192, 21, 47;
+  --color-warning-rgb: 168, 75, 47;
+  --color-info-rgb: 98, 108, 113;
+
+  /* Typography */
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-mono: "Berkeley Mono", ui-monospace, SFMono-Regular, Menlo,
+    Monaco, Consolas, monospace;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --letter-spacing-tight: -0.01em;
+
+  /* Spacing */
+  --space-0: 0;
+  --space-1: 1px;
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04),
+    0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04),
+    0 4px 6px -2px rgba(0, 0, 0, 0.02);
+  --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.03);
+
+  /* Animation */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Layout */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+}
+
+/* Dark mode colors */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: rgba(31, 33, 33, 1);
+    --color-surface: rgba(38, 40, 40, 1);
+    --color-text: rgba(245, 245, 245, 1);
+    --color-text-secondary: rgba(167, 169, 169, 0.7);
+    --color-primary: rgba(50, 184, 198, 1);
+    --color-primary-hover: rgba(45, 166, 178, 1);
+    --color-primary-active: rgba(41, 150, 161, 1);
+    --color-secondary: rgba(119, 124, 124, 0.15);
+    --color-secondary-hover: rgba(119, 124, 124, 0.25);
+    --color-secondary-active: rgba(119, 124, 124, 0.3);
+    --color-border: rgba(119, 124, 124, 0.3);
+    --color-error: rgba(255, 84, 89, 1);
+    --color-success: rgba(50, 184, 198, 1);
+    --color-warning: rgba(230, 129, 97, 1);
+    --color-info: rgba(167, 169, 169, 1);
+    --color-focus-ring: rgba(50, 184, 198, 0.4);
+    --color-btn-primary-text: rgba(19, 52, 59, 1);
+    --color-card-border: rgba(119, 124, 124, 0.2);
+    --color-card-border-inner: rgba(119, 124, 124, 0.15);
+    --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    --button-border-secondary: rgba(119, 124, 124, 0.2);
+    --color-border-secondary: rgba(119, 124, 124, 0.2);
+    --color-select-caret: rgba(245, 245, 245, 0.8);
+
+    /* Common style patterns - updated for dark mode */
+    --focus-ring: 0 0 0 3px var(--color-focus-ring);
+    --focus-outline: 2px solid var(--color-primary);
+    --status-bg-opacity: 0.15;
+    --status-border-opacity: 0.25;
+    --select-caret-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23134252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    --select-caret-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+
+    /* RGB versions for dark mode */
+    --color-success-rgb: 50, 184, 198;
+    --color-error-rgb: 255, 84, 89;
+    --color-warning-rgb: 230, 129, 97;
+    --color-info-rgb: 167, 169, 169;
+  }
+}
+
+/* Data attribute for manual theme switching */
+[data-color-scheme="dark"] {
+  --color-background: rgba(31, 33, 33, 1);
+  --color-surface: rgba(38, 40, 40, 1);
+  --color-text: rgba(245, 245, 245, 1);
+  --color-text-secondary: rgba(167, 169, 169, 0.7);
+  --color-primary: rgba(50, 184, 198, 1);
+  --color-primary-hover: rgba(45, 166, 178, 1);
+  --color-primary-active: rgba(41, 150, 161, 1);
+  --color-secondary: rgba(119, 124, 124, 0.15);
+  --color-secondary-hover: rgba(119, 124, 124, 0.25);
+  --color-secondary-active: rgba(119, 124, 124, 0.3);
+  --color-border: rgba(119, 124, 124, 0.3);
+  --color-error: rgba(255, 84, 89, 1);
+  --color-success: rgba(50, 184, 198, 1);
+  --color-warning: rgba(230, 129, 97, 1);
+  --color-info: rgba(167, 169, 169, 1);
+  --color-focus-ring: rgba(50, 184, 198, 0.4);
+  --color-btn-primary-text: rgba(19, 52, 59, 1);
+  --color-card-border: rgba(119, 124, 124, 0.15);
+  --color-card-border-inner: rgba(119, 124, 124, 0.15);
+  --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  --color-border-secondary: rgba(119, 124, 124, 0.2);
+  --color-select-caret: rgba(245, 245, 245, 0.8);
+
+  /* Common style patterns - updated for dark mode */
+  --focus-ring: 0 0 0 3px var(--color-focus-ring);
+  --focus-outline: 2px solid var(--color-primary);
+  --status-bg-opacity: 0.15;
+  --status-border-opacity: 0.25;
+  --select-caret-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23134252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  --select-caret-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+
+  /* RGB versions for dark mode */
+  --color-success-rgb: 50, 184, 198;
+  --color-error-rgb: 255, 84, 89;
+  --color-warning-rgb: 230, 129, 97;
+  --color-info-rgb: 167, 169, 169;
+}
+
+[data-color-scheme="light"] {
+  --color-background: rgba(252, 252, 249, 1);
+  --color-surface: rgba(255, 255, 253, 1);
+  --color-text: rgba(19, 52, 59, 1);
+  --color-text-secondary: rgba(98, 108, 113, 1);
+  --color-primary: rgba(33, 128, 141, 1);
+  --color-primary-hover: rgba(29, 116, 128, 1);
+  --color-primary-active: rgba(26, 104, 115, 1);
+  --color-secondary: rgba(94, 82, 64, 0.12);
+  --color-secondary-hover: rgba(94, 82, 64, 0.2);
+  --color-secondary-active: rgba(94, 82, 64, 0.25);
+  --color-border: rgba(94, 82, 64, 0.2);
+  --color-btn-primary-text: rgba(252, 252, 249, 1);
+  --color-card-border: rgba(94, 82, 64, 0.12);
+  --color-card-border-inner: rgba(94, 82, 64, 0.12);
+  --color-error: rgba(192, 21, 47, 1);
+  --color-success: rgba(33, 128, 141, 1);
+  --color-warning: rgba(168, 75, 47, 1);
+  --color-info: rgba(98, 108, 113, 1);
+  --color-focus-ring: rgba(33, 128, 141, 0.4);
+
+  /* RGB versions for light mode */
+  --color-success-rgb: 33, 128, 141;
+  --color-error-rgb: 192, 21, 47;
+  --color-warning-rgb: 168, 75, 47;
+  --color-info-rgb: 98, 108, 113;
+}
+
+/* Base styles */
+html {
+  font-size: var(--font-size-base);
+  font-family: var(--font-family-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+h1 {
+  font-size: var(--font-size-4xl);
+}
+h2 {
+  font-size: var(--font-size-3xl);
+}
+h3 {
+  font-size: var(--font-size-2xl);
+}
+h4 {
+  font-size: var(--font-size-xl);
+}
+h5 {
+  font-size: var(--font-size-lg);
+}
+h6 {
+  font-size: var(--font-size-md);
+}
+
+p {
+  margin: 0 0 var(--space-16) 0;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+code,
+pre {
+  font-family: var(--font-family-mono);
+  font-size: calc(var(--font-size-base) * 0.95);
+  background-color: var(--color-secondary);
+  border-radius: var(--radius-sm);
+}
+
+code {
+  padding: var(--space-1) var(--space-4);
+}
+
+pre {
+  padding: var(--space-16);
+  margin: var(--space-16) 0;
+  overflow: auto;
+  border: 1px solid var(--color-border);
+}
+
+pre code {
+  background: none;
+  padding: 0;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-standard);
+  border: none;
+  text-decoration: none;
+  position: relative;
+}
+
+.btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: var(--color-btn-primary-text);
+}
+
+.btn--primary:hover {
+  background: var(--color-primary-hover);
+}
+
+.btn--primary:active {
+  background: var(--color-primary-active);
+}
+
+.btn--secondary {
+  background: var(--color-secondary);
+  color: var(--color-text);
+}
+
+.btn--secondary:hover {
+  background: var(--color-secondary-hover);
+}
+
+.btn--secondary:active {
+  background: var(--color-secondary-active);
+}
+
+.btn--outline {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.btn--outline:hover {
+  background: var(--color-secondary);
+}
+
+.btn--sm {
+  padding: var(--space-4) var(--space-12);
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-sm);
+}
+
+.btn--lg {
+  padding: var(--space-10) var(--space-20);
+  font-size: var(--font-size-lg);
+  border-radius: var(--radius-md);
+}
+
+.btn--full-width {
+  width: 100%;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Form elements */
+.form-control {
+  display: block;
+  width: 100%;
+  padding: var(--space-8) var(--space-12);
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  transition: border-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+textarea.form-control {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+}
+
+select.form-control {
+  padding: var(--space-8) var(--space-12);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: var(--select-caret-light);
+  background-repeat: no-repeat;
+  background-position: right var(--space-12) center;
+  background-size: 16px;
+  padding-right: var(--space-32);
+}
+
+/* Add a dark mode specific caret */
+@media (prefers-color-scheme: dark) {
+  select.form-control {
+    background-image: var(--select-caret-dark);
+  }
+}
+
+/* Also handle data-color-scheme */
+[data-color-scheme="dark"] select.form-control {
+  background-image: var(--select-caret-dark);
+}
+
+[data-color-scheme="light"] select.form-control {
+  background-image: var(--select-caret-light);
+}
+
+.form-control:focus {
+  border-color: var(--color-primary);
+  outline: var(--focus-outline);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: var(--space-8);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+}
+
+.form-group {
+  margin-bottom: var(--space-16);
+}
+
+/* Card component */
+.card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-card-border);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: box-shadow var(--duration-normal) var(--ease-standard);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.card__body {
+  padding: var(--space-16);
+}
+
+.card__header,
+.card__footer {
+  padding: var(--space-16);
+  border-bottom: 1px solid var(--color-card-border-inner);
+}
+
+/* Status indicators - simplified with CSS variables */
+.status {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-6) var(--space-12);
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+}
+
+.status--success {
+  background-color: rgba(
+    var(--color-success-rgb, 33, 128, 141),
+    var(--status-bg-opacity)
+  );
+  color: var(--color-success);
+  border: 1px solid
+    rgba(var(--color-success-rgb, 33, 128, 141), var(--status-border-opacity));
+}
+
+.status--error {
+  background-color: rgba(
+    var(--color-error-rgb, 192, 21, 47),
+    var(--status-bg-opacity)
+  );
+  color: var(--color-error);
+  border: 1px solid
+    rgba(var(--color-error-rgb, 192, 21, 47), var(--status-border-opacity));
+}
+
+.status--warning {
+  background-color: rgba(
+    var(--color-warning-rgb, 168, 75, 47),
+    var(--status-bg-opacity)
+  );
+  color: var(--color-warning);
+  border: 1px solid
+    rgba(var(--color-warning-rgb, 168, 75, 47), var(--status-border-opacity));
+}
+
+.status--info {
+  background-color: rgba(
+    var(--color-info-rgb, 98, 108, 113),
+    var(--status-bg-opacity)
+  );
+  color: var(--color-info);
+  border: 1px solid
+    rgba(var(--color-info-rgb, 98, 108, 113), var(--status-border-opacity));
+}
+
+/* Container layout */
+.section-content {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: var(--space-16);
+  padding-left: var(--space-16);
+}
+
+@media (min-width: 640px) {
+  .section-content {
+    max-width: var(--container-sm);
+  }
+}
+@media (min-width: 768px) {
+  .section-content {
+    max-width: var(--container-md);
+  }
+}
+@media (min-width: 1024px) {
+  .section-content {
+    max-width: var(--container-lg);
+  }
+}
+@media (min-width: 1280px) {
+  .section-content {
+    max-width: var(--container-xl);
+  }
+}
+
+/* Utility classes */
+.flex {
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
+.items-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-4 {
+  gap: var(--space-4);
+}
+.gap-8 {
+  gap: var(--space-8);
+}
+.gap-16 {
+  gap: var(--space-16);
+}
+
+.block {
+  display: block;
+}
+.hidden {
+  display: none;
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: 2px;
+}
+
+/* Dark mode specifics */
+[data-color-scheme="dark"] .btn--outline {
+  border: 1px solid var(--color-border-secondary);
+}
+
+@font-face {
+  font-family: 'FKGroteskNeue';
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2')
+    format('woff2');
+}
+
+/* Import the design system first */
+:root {
+  /* Colors */
+  --color-background: rgba(252, 252, 249, 1);
+  --color-surface: rgba(255, 255, 253, 1);
+  --color-text: rgba(19, 52, 59, 1);
+  --color-text-secondary: rgba(98, 108, 113, 1);
+  --color-primary: rgba(33, 128, 141, 1);
+  --color-primary-hover: rgba(29, 116, 128, 1);
+  --color-primary-active: rgba(26, 104, 115, 1);
+  --color-secondary: rgba(94, 82, 64, 0.12);
+  --color-secondary-hover: rgba(94, 82, 64, 0.2);
+  --color-secondary-active: rgba(94, 82, 64, 0.25);
+  --color-border: rgba(94, 82, 64, 0.2);
+  --color-btn-primary-text: rgba(252, 252, 249, 1);
+  --color-card-border: rgba(94, 82, 64, 0.12);
+  --color-card-border-inner: rgba(94, 82, 64, 0.12);
+  --color-error: rgba(192, 21, 47, 1);
+  --color-success: rgba(33, 128, 141, 1);
+  --color-warning: rgba(168, 75, 47, 1);
+  --color-info: rgba(98, 108, 113, 1);
+  --color-focus-ring: rgba(33, 128, 141, 0.4);
+  --color-select-caret: rgba(19, 52, 59, 0.8);
+
+  /* Common style patterns */
+  --focus-ring: 0 0 0 3px var(--color-focus-ring);
+  --focus-outline: 2px solid var(--color-primary);
+  --status-bg-opacity: 0.15;
+  --status-border-opacity: 0.25;
+
+  /* RGB versions for opacity control */
+  --color-success-rgb: 33, 128, 141;
+  --color-error-rgb: 192, 21, 47;
+  --color-warning-rgb: 168, 75, 47;
+  --color-info-rgb: 98, 108, 113;
+
+  /* Typography */
+  --font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --letter-spacing-tight: -0.01em;
+
+  /* Spacing */
+  --space-0: 0;
+  --space-1: 1px;
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+
+  /* Animation */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Dark mode colors */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: rgba(31, 33, 33, 1);
+    --color-surface: rgba(38, 40, 40, 1);
+    --color-text: rgba(245, 245, 245, 1);
+    --color-text-secondary: rgba(167, 169, 169, 0.7);
+    --color-primary: rgba(50, 184, 198, 1);
+    --color-primary-hover: rgba(45, 166, 178, 1);
+    --color-primary-active: rgba(41, 150, 161, 1);
+    --color-secondary: rgba(119, 124, 124, 0.15);
+    --color-secondary-hover: rgba(119, 124, 124, 0.25);
+    --color-secondary-active: rgba(119, 124, 124, 0.3);
+    --color-border: rgba(119, 124, 124, 0.3);
+    --color-error: rgba(255, 84, 89, 1);
+    --color-success: rgba(50, 184, 198, 1);
+    --color-warning: rgba(230, 129, 97, 1);
+    --color-info: rgba(167, 169, 169, 1);
+    --color-focus-ring: rgba(50, 184, 198, 0.4);
+    --color-btn-primary-text: rgba(19, 52, 59, 1);
+    --color-card-border: rgba(119, 124, 124, 0.2);
+    --color-card-border-inner: rgba(119, 124, 124, 0.15);
+    --color-border-secondary: rgba(119, 124, 124, 0.2);
+    --color-select-caret: rgba(245, 245, 245, 0.8);
+
+    /* RGB versions for dark mode */
+    --color-success-rgb: 50, 184, 198;
+    --color-error-rgb: 255, 84, 89;
+    --color-warning-rgb: 230, 129, 97;
+    --color-info-rgb: 167, 169, 169;
+  }
+}
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #312e81 100%);
+  color: #ffffff;
+  min-height: 100vh;
+  font-family: var(--font-family-base);
+}
+
+/* Layout utilities */
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.section-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Spacing utilities */
+
+@media (min-width: 640px) {
+  .section-content { padding: 0 1.5rem; }
+  .sm\\:p-6 { padding: 1.5rem; }
+}
+
+@media (min-width: 1024px) {
+  .section-content { padding: 0 2rem; }
+  .lg\\:p-8 { padding: 2rem; }
+}
+
+/* Typography */
+.text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+.text-5xl { font-size: 3rem; line-height: 1; }
+.text-2xl { font-size: 1.5rem; line-height: 2rem; }
+.text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+.text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+.text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+
+.font-extrabold { font-weight: 800; }
+.font-bold { font-weight: 700; }
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+
+.tracking-tight { letter-spacing: -0.025em; }
+
+/* Text alignment */
+
+/* Text colors */
+.text-white { color: #ffffff; }
+.text-gray-300 { color: #d1d5db; }
+.text-gray-400 { color: #9ca3af; }
+.text-blue-400 { color: #60a5fa; }
+.text-green-400 { color: #34d399; }
+.text-red-400 { color: #f87171; }
+.text-purple-400 { color: #a78bfa; }
+.text-yellow-400 { color: #fbbf24; }
+.text-indigo-400 { color: #818cf8; }
+.text-pink-500 { color: #ec4899; }
+.text-transparent { color: transparent; }
+
+/* Gradient text */
+.bg-clip-text {
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.bg-gradient-to-r {
+  background-image: linear-gradient(to right, #818cf8, #ec4899);
+}
+
+/* Flexbox utilities */
+.flex { display: flex; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-end { justify-content: flex-end; }
+.items-center { align-items: center; }
+
+.space-x-2 > :not([hidden]) ~ :not([hidden]) {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+.space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+.space-y-6 > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+}
+
+.space-y-2 > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+/* Grid system */
+.grid {
+  display: grid;
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.gap-6 {
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .md\\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .md\\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Card component */
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.w-full { width: 100%; }
+
+/* Navigation */
+nav {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4px);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+nav > div {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tab-button {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+  border: none;
+  background: transparent;
+  color: #d1d5db;
+  cursor: pointer;
+}
+
+.tab-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.tab-button.active {
+  background: #4f46e5;
+  color: #ffffff;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.tab-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.4);
+}
+
+/* Tab content */
+.tab-content {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+.tab-content.hidden {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Table styling */
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  text-align: left;
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(107, 114, 128, 0.3);
+}
+
+th {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+th:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+tbody tr:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.sort-icon {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-left: 0.25rem;
+}
+
+.sort-icon.asc {
+  color: #818cf8;
+}
+
+.sort-icon.desc {
+  color: #818cf8;
+}
+
+/* Category badges */
+.category-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 9999px;
+}
+
+.category-health {
+  background: rgba(52, 211, 153, 0.2);
+  color: #34d399;
+}
+
+.category-time {
+  background: rgba(96, 165, 250, 0.2);
+  color: #60a5fa;
+}
+
+.category-business {
+  background: rgba(167, 139, 250, 0.2);
+  color: #a78bfa;
+}
+
+.category-financial {
+  background: rgba(251, 191, 36, 0.2);
+  color: #fbbf24;
+}
+
+/* Form elements */
+.form-control {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.4);
+}
+
+.form-control option {
+  background: #1f2937;
+  color: #ffffff;
+}
+
+.relative {
+  position: relative;
+}
+
+.chevron-down {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  transform: translateY(-50%);
+  width: 1rem;
+  height: 1rem;
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+/* Sliders */
+.slider {
+  width: 100%;
+  height: 0.5rem;
+  background: #374151;
+  border-radius: 0.5rem;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  background: #4f46e5;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  background: #4338ca;
+  transform: scale(1.1);
+}
+
+.slider::-moz-range-thumb {
+  width: 1.25rem;
+  height: 1.25rem;
+  background: #4f46e5;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.slider::-moz-range-thumb:hover {
+  background: #4338ca;
+  transform: scale(1.1);
+}
+
+/* Chart container */
+.chart-container {
+  height: 500px;
+  position: relative;
+}
+
+.chart-container canvas {
+  max-height: 400px;
+  width: 100% !important;
+}
+
+/* Lists */
+.list-disc {
+  list-style-type: disc;
+}
+
+.list-inside {
+  list-style-position: inside;
+}
+
+/* Utility classes */
+.hidden {
+  display: none !important;
+}
+
+.block {
+  display: block;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.transition-all {
+  transition: all 0.2s ease;
+}
+
+/* Financial and mood colors */
+.financial-positive {
+  color: #34d399;
+}
+
+.financial-negative {
+  color: #f87171;
+}
+
+.mood-negative {
+  color: #f87171;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .section-content {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .text-4xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
+  .text-5xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  nav > div {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  .tab-button {
+    font-size: 0.75rem;
+    padding: 0.375rem 0.75rem;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Ensure proper spacing */
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+main {
+  width: 100%;
+}
+</style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  
+  
+  
+  
+ </head>
+ <body>
+  <div class="min-h-screen from-gray-900 via-gray-900 to-indigo-900/50">
+   <div class="section-content mx-auto p-4 sm:p-6 lg:p-8">
+    <header class="mb-8">
+     <h1 class="sm:text-5xl font-extrabold tracking-tight from-indigo-400 to-pink-500">
+      Sacrifice Metrics Dashboard
+     </h1>
+     <p class="mt-2">
+      Quantifying the impact of life choices.
+     </p>
+    </header>
+    <nav class="flex mb-8 p-2 backdrop-blur-sm nav-bar">
+     <div class="flex space-x-2 nav-content">
+      <button class="tab-button" data-tab="dashboard">
+       Dashboard
+      </button>
+      <button class="tab-button" data-tab="impact-table">
+       Impact Table
+      </button>
+      <button class="tab-button" data-tab="formulas">
+       Formulas
+      </button>
+      <button class="tab-button" data-tab="tracker">
+       Tracker
+      </button>
+     </div>
+    </nav>
+    <main>
+     <!-- Dashboard Tab -->
+     <div class="tab-content" id="dashboard">
+      <div class="space-y-6">
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card">
+         <h2 class="font-bold mb-4">
+          Total Annual Gains
+         </h2>
+         <div class="space-y-4">
+          <div class="flex items-center">
+           <span>
+            Time Freed:
+           </span>
+           <span class="font-bold" id="total-time">
+           </span>
+          </div>
+          <div class="flex items-center">
+           <span>
+            Net Financial Impact:
+           </span>
+           <span class="font-bold" id="total-financial">
+           </span>
+          </div>
+          <div class="flex items-center">
+           <span>
+            Productivity Gain:
+           </span>
+           <span class="font-bold" id="total-productivity">
+           </span>
+          </div>
+          <div class="flex items-center">
+           <span>
+            Health Improvement:
+           </span>
+           <span class="font-bold" id="total-health">
+           </span>
+          </div>
+          <div class="flex items-center">
+           <span>
+            Mood Net Change:
+           </span>
+           <span class="font-bold" id="total-mood">
+           </span>
+          </div>
+         </div>
+        </div>
+        <div class="card">
+         <h2 class="font-bold mb-4">
+          ROI by Category
+         </h2>
+         <div>
+          <table class="w-full">
+           <thead>
+            <tr>
+             <th class="p-2">
+              Category
+             </th>
+             <th class="p-2">
+              Investment
+             </th>
+             <th class="p-2">
+              Annual Return
+             </th>
+             <th class="p-2">
+              5-Year ROI
+             </th>
+            </tr>
+           </thead>
+           <tbody id="roi-table-body">
+           </tbody>
+          </table>
+         </div>
+        </div>
+       </div>
+       <div class="card w-full chart-container">
+        <h2 class="font-bold mb-4">
+         Metrics Progression Over 24 Months
+        </h2>
+        <canvas id="progressionChart">
+        </canvas>
+       </div>
+      </div>
+     </div>
+     <!-- Impact Table Tab -->
+     <div class="tab-content hidden" id="impact-table">
+      <div class="card w-full">
+       <h2 class="font-bold mb-4">
+        Enhanced Sacrifice Impact
+       </h2>
+       <div class="flex mb-4">
+        <div class="relative">
+         <select class="form-control py-2 pl-3 pr-10 focus:outline-none focus:ring-2 focus:ring-indigo-500" id="category-filter">
+          <option value="All">
+           All
+          </option>
+          <option value="Health">
+           Health
+          </option>
+          <option value="Time">
+           Time
+          </option>
+          <option value="Business">
+           Business
+          </option>
+          <option value="Financial">
+           Financial
+          </option>
+         </select>
+         <svg class="chevron-down" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="6 9 12 15 18 9">
+          </polyline>
+         </svg>
+        </div>
+       </div>
+       <div>
+        <table class="w-full">
+         <thead>
+          <tr>
+           <th class="p-3 cursor-pointer" data-sort="sacrifice">
+            Sacrifice
+            <span class="sort-icon">
+             ⇅
+            </span>
+           </th>
+           <th class="p-3 cursor-pointer" data-sort="category">
+            Category
+            <span class="sort-icon">
+             ⇅
+            </span>
+           </th>
+           <th class="p-3 cursor-pointer" data-sort="hoursSaved">
+            Hrs Saved/Wk
+            <span class="sort-icon">
+             ⇅
+            </span>
+           </th>
+           <th class="p-3 cursor-pointer" data-sort="financialImpact">
+            Annual Financial Impact
+            <span class="sort-icon">
+             ⇅
+            </span>
+           </th>
+           <th class="p-3 cursor-pointer" data-sort="productivityScore">
+            Prod. Score
+            <span class="sort-icon">
+             ⇅
+            </span>
+           </th>
+           <th class="p-3 cursor-pointer" data-sort="healthScore">
+            Health Score
+            <span class="sort-icon">
+             ⇅
+            </span>
+           </th>
+           <th class="p-3 cursor-pointer" data-sort="moodScore">
+            Mood Score
+            <span class="sort-icon">
+             ⇅
+            </span>
+           </th>
+           <th class="p-3 cursor-pointer" data-sort="initialCost">
+            Initial Cost
+            <span class="sort-icon">
+             ⇅
+            </span>
+           </th>
+           <th class="p-3 cursor-pointer" data-sort="roiTimeline">
+            ROI (Months)
+            <span class="sort-icon">
+             ⇅
+            </span>
+           </th>
+          </tr>
+         </thead>
+         <tbody id="sacrifice-table-body">
+         </tbody>
+        </table>
+       </div>
+      </div>
+     </div>
+     <!-- Formulas Tab -->
+     <div class="tab-content hidden" id="formulas">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+       <div class="card">
+        <h3 class="font-bold mb-2">
+         Time Value Calculation
+        </h3>
+        <p class="mb-4">
+         Annual Time Value = (Hrs Saved/Wk × 52) × Hourly Rate
+        </p>
+        <div class="mb-4">
+         <label class="block mb-2">
+          Your Hourly Rate:
+          <span id="hourly-rate-display">
+           $50
+          </span>
+         </label>
+         <input class="slider" id="hourly-rate" max="200" min="10" step="5" type="range" value="50"/>
+        </div>
+        <p>
+         Example: (65 × 52) ×
+         <span id="hourly-rate-calc">
+          $50
+         </span>
+         =
+         <span class="font-bold" id="time-value-result">
+          $169,000
+         </span>
+        </p>
+       </div>
+       <div class="card">
+        <h3 class="font-bold mb-2">
+         Compound Health Benefits
+        </h3>
+        <p class="mb-4">
+         Health ROI = (Health Score Gain × Life Extension Years × Quality of Life Multiplier)
+        </p>
+        <div class="mb-4">
+         <label class="block mb-2">
+          Life Extension:
+          <span id="life-extension-display">
+           5
+          </span>
+          years
+         </label>
+         <input class="slider" id="life-extension" max="15" min="1" type="range" value="5"/>
+        </div>
+        <div class="mb-4">
+         <label class="block mb-2">
+          QoL Multiplier:
+          <span id="qol-multiplier-display">
+           $100,000
+          </span>
+         </label>
+         <input class="slider" id="qol-multiplier" max="250000" min="25000" step="25000" type="range" value="100000"/>
+        </div>
+        <p>
+         Example: 35 ×
+         <span id="life-extension-calc">
+          5
+         </span>
+         ×
+         <span id="qol-multiplier-calc">
+          $100,000
+         </span>
+         =
+         <span class="font-bold" id="health-roi-result">
+          $17,500,000
+         </span>
+        </p>
+       </div>
+       <div class="card">
+        <h3 class="font-bold mb-2">
+         Productivity Multiplier
+        </h3>
+        <p class="mb-4">
+         Enhanced Output = Base Productivity × (1 + Prod. Gain/100)
+        </p>
+        <div class="mb-4">
+         <label class="block mb-2">
+          Base Productivity Units:
+          <span id="base-prod-display">
+           100
+          </span>
+         </label>
+         <input class="slider" id="base-prod" max="500" min="50" step="10" type="range" value="100"/>
+        </div>
+        <p>
+         Example:
+         <span id="base-prod-calc">
+          100
+         </span>
+         × (1 + 30/100) =
+         <span class="font-bold" id="productivity-result">
+          130
+         </span>
+         units
+        </p>
+       </div>
+      </div>
+     </div>
+     <!-- Tracker Tab -->
+     <div class="tab-content hidden" id="tracker">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+       <div class="card">
+        <h3 class="font-bold mb-4">
+         Daily Metrics to Track
+        </h3>
+        <ul class="list-disc list-inside space-y-2">
+         <li>
+          Hours saved from each sacrifice
+         </li>
+         <li>
+          Money saved/invested
+         </li>
+         <li>
+          Productivity rating (1-10)
+         </li>
+         <li>
+          Health feeling (1-10)
+         </li>
+         <li>
+          Mood score (1-10)
+         </li>
+         <li>
+          Tasks completed
+         </li>
+        </ul>
+       </div>
+       <div class="card">
+        <h3 class="font-bold mb-4">
+         Weekly Calculations
+        </h3>
+        <ul class="list-disc list-inside space-y-2">
+         <li>
+          Total hours reclaimed
+         </li>
+         <li>
+          Net financial position
+         </li>
+         <li>
+          Average scores across all metrics
+         </li>
+         <li>
+          Progress toward ROI break-even points
+         </li>
+        </ul>
+       </div>
+       <div class="card">
+        <h3 class="font-bold mb-4">
+         Monthly Analysis
+        </h3>
+        <ul class="list-disc list-inside space-y-2">
+         <li>
+          Trend analysis of all metrics
+         </li>
+         <li>
+          Adjustment recommendations
+         </li>
+         <li>
+          Sacrifice effectiveness ranking
+         </li>
+         <li>
+          Goal alignment assessment
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+    </main>
+   </div>
+  </div>
+  <script>
+// Data from the application
+const sacrificeData = [
+    { id: 1, sacrifice: 'Quit smoking', category: 'Health', hoursSaved: 7, financialImpact: 2400, monthlyTimeGain: 30, productivityScore: 3, healthScore: 8, moodScore: 4, initialCost: 0, roiTimeline: 1 },
+    { id: 2, sacrifice: 'Cut social media 90%', category: 'Time', hoursSaved: 14, financialImpact: 0, monthlyTimeGain: 60, productivityScore: 4, healthScore: 2, moodScore: 3, initialCost: 0, roiTimeline: 1 },
+    { id: 3, sacrifice: 'Miss social events (50%)', category: 'Time', hoursSaved: 8, financialImpact: 480, monthlyTimeGain: 32, productivityScore: 2, healthScore: 1, moodScore: -1, initialCost: 0, roiTimeline: 2 },
+    { id: 4, sacrifice: 'Invest in business education', category: 'Business', hoursSaved: 0, financialImpact: -10000, monthlyTimeGain: 0, productivityScore: 6, healthScore: 1, moodScore: 5, initialCost: 10000, roiTimeline: 18 },
+    { id: 5, sacrifice: 'Cut draining relationships', category: 'Health', hoursSaved: 5, financialImpact: 0, monthlyTimeGain: 20, productivityScore: 3, healthScore: 3, moodScore: 6, initialCost: 0, roiTimeline: 1 },
+    { id: 6, sacrifice: 'Eliminate late-night entertainment', category: 'Time', hoursSaved: 10, financialImpact: 0, monthlyTimeGain: 43, productivityScore: 4, healthScore: 4, moodScore: 2, initialCost: 0, roiTimeline: 1 },
+    { id: 7, sacrifice: 'Delegate/rehome pet', category: 'Time', hoursSaved: 14, financialImpact: 1800, monthlyTimeGain: 60, productivityScore: 5, healthScore: 7, moodScore: -2, initialCost: 0, roiTimeline: 1 },
+    { id: 8, sacrifice: 'Quit drinking alcohol', category: 'Health', hoursSaved: 3, financialImpact: 1200, monthlyTimeGain: 13, productivityScore: 2, healthScore: 6, moodScore: 1, initialCost: 0, roiTimeline: 1 },
+    { id: 9, sacrifice: 'Cancel unused subscriptions', category: 'Financial', hoursSaved: 0, financialImpact: 600, monthlyTimeGain: 0, productivityScore: 0, healthScore: 0, moodScore: 1, initialCost: 0, roiTimeline: 0 },
+    { id: 10, sacrifice: 'Meal prep vs dining out', category: 'Health', hoursSaved: 4, financialImpact: 3600, monthlyTimeGain: 17, productivityScore: 1, healthScore: 3, moodScore: 0, initialCost: 200, roiTimeline: 1 }
+];
+
+const roiCategoryData = [
+    { category: 'Health sacrifices', investment: 200, annualReturn: 5400, breakEven: 1, roi5Year: 2600 },
+    { category: 'Time optimization', investment: 0, annualReturn: 0, breakEven: 0, roi5Year: '∞' },
+    { category: 'Education/Business', investment: 10000, annualReturn: -10000, breakEven: 18, roi5Year: 150 },
+    { category: 'Habit elimination', investment: 0, annualReturn: 4200, breakEven: 1, roi5Year: '∞' }
+];
+
+const monthlyProgressionData = [
+    { month: 1, hours: 280, financial: -8520, productivity: 25, health: 30, mood: 15 },
+    { month: 3, hours: 840, financial: -7920, productivity: 28, health: 33, mood: 17 },
+    { month: 6, hours: 1680, financial: -6720, productivity: 30, health: 35, mood: 19 },
+    { month: 12, hours: 3380, financial: -2720, productivity: 30, health: 35, mood: 19 },
+    { month: 18, hours: 5070, financial: 2280, productivity: 30, health: 35, mood: 19 },
+    { month: 24, hours: 6760, financial: 7280, productivity: 30, health: 35, mood: 19 }
+];
+
+const totalGains = {
+    time: 65,
+    financial: -2720,
+    productivity: 30,
+    health: 35,
+    mood: 19
+};
+
+// Helper functions
+const formatCurrency = (value) => {
+    return new Intl.NumberFormat('en-US', { 
+        style: 'currency', 
+        currency: 'USD', 
+        minimumFractionDigits: 0 
+    }).format(value);
+};
+
+const formatNumber = (value) => {
+    return new Intl.NumberFormat('en-US').format(value);
+};
+
+// Global variables
+let currentSortConfig = { key: 'sacrifice', direction: 'ascending' };
+let currentFilter = 'All';
+let progressionChart = null;
+
+// Initialize the application
+document.addEventListener('DOMContentLoaded', function() {
+    initializeTabs();
+    populateDashboard();
+    populateImpactTable();
+    initializeFormulas();
+    initializeChart();
+});
+
+// Tab management
+function initializeTabs() {
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    // Set initial active tab
+    tabButtons[0].classList.add('active');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetTab = button.getAttribute('data-tab');
+            
+            // Remove active class from all buttons
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            button.classList.add('active');
+            
+            // Hide all tab contents
+            tabContents.forEach(content => content.classList.add('hidden'));
+            
+            // Show target tab content
+            const targetContent = document.getElementById(targetTab);
+            if (targetContent) {
+                targetContent.classList.remove('hidden');
+            }
+        });
+    });
+}
+
+// Dashboard population
+function populateDashboard() {
+    // Total gains
+    document.getElementById('total-time').textContent = formatNumber(totalGains.time * 52) + ' hrs/year';
+    
+    const financialElement = document.getElementById('total-financial');
+    financialElement.textContent = formatCurrency(totalGains.financial);
+    financialElement.className = totalGains.financial < 0 ? 'text-2xl font-bold text-red-400' : 'text-2xl font-bold text-green-400';
+    
+    document.getElementById('total-productivity').textContent = '+' + totalGains.productivity + ' points';
+    document.getElementById('total-health').textContent = '+' + totalGains.health + ' points';
+    document.getElementById('total-mood').textContent = '+' + totalGains.mood + ' points';
+    
+    // ROI table
+    const roiTableBody = document.getElementById('roi-table-body');
+    roiTableBody.innerHTML = '';
+    
+    roiCategoryData.forEach(item => {
+        const row = document.createElement('tr');
+        row.className = 'border-b border-gray-800';
+        
+        const returnClass = item.annualReturn < 0 ? 'text-red-400' : 'text-green-400';
+        const roiDisplay = item.roi5Year === '∞' ? '∞' : formatNumber(item.roi5Year) + '%';
+        
+        row.innerHTML = `
+            <td class="p-2 font-medium text-white">${item.category}</td>
+            <td class="p-2 text-right">${formatCurrency(item.investment)}</td>
+            <td class="p-2 text-right ${returnClass}">${formatCurrency(item.annualReturn)}</td>
+            <td class="p-2 text-right font-bold text-indigo-400">${roiDisplay}</td>
+        `;
+        
+        roiTableBody.appendChild(row);
+    });
+}
+
+// Impact table population and management
+function populateImpactTable() {
+    const categoryFilter = document.getElementById('category-filter');
+    const tableBody = document.getElementById('sacrifice-table-body');
+    
+    // Filter change handler
+    categoryFilter.addEventListener('change', (e) => {
+        currentFilter = e.target.value;
+        renderTable();
+    });
+    
+    // Sort handlers
+    const sortableHeaders = document.querySelectorAll('[data-sort]');
+    sortableHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const sortKey = header.getAttribute('data-sort');
+            requestSort(sortKey);
+        });
+    });
+    
+    renderTable();
+}
+
+function requestSort(key) {
+    let direction = 'ascending';
+    if (currentSortConfig.key === key && currentSortConfig.direction === 'ascending') {
+        direction = 'descending';
+    }
+    currentSortConfig = { key, direction };
+    
+    updateSortIcons();
+    renderTable();
+}
+
+function updateSortIcons() {
+    const sortableHeaders = document.querySelectorAll('[data-sort]');
+    sortableHeaders.forEach(header => {
+        const sortIcon = header.querySelector('.sort-icon');
+        const sortKey = header.getAttribute('data-sort');
+        
+        if (currentSortConfig.key === sortKey) {
+            sortIcon.textContent = currentSortConfig.direction === 'ascending' ? '↑' : '↓';
+            sortIcon.className = 'sort-icon asc';
+        } else {
+            sortIcon.textContent = '⇅';
+            sortIcon.className = 'sort-icon';
+        }
+    });
+}
+
+function renderTable() {
+    const tableBody = document.getElementById('sacrifice-table-body');
+    
+    // Filter data
+    let filteredData = [...sacrificeData];
+    if (currentFilter !== 'All') {
+        filteredData = filteredData.filter(item => item.category === currentFilter);
+    }
+    
+    // Sort data
+    filteredData.sort((a, b) => {
+        const aVal = a[currentSortConfig.key];
+        const bVal = b[currentSortConfig.key];
+        
+        if (aVal < bVal) {
+            return currentSortConfig.direction === 'ascending' ? -1 : 1;
+        }
+        if (aVal > bVal) {
+            return currentSortConfig.direction === 'ascending' ? 1 : -1;
+        }
+        return 0;
+    });
+    
+    // Clear and populate table
+    tableBody.innerHTML = '';
+    
+    filteredData.forEach(item => {
+        const row = document.createElement('tr');
+        row.className = 'border-b border-gray-800 hover:bg-white/5';
+        
+        const categoryClass = getCategoryClass(item.category);
+        const financialClass = item.financialImpact < 0 ? 'financial-negative' : 'financial-positive';
+        const moodClass = item.moodScore < 0 ? 'mood-negative' : '';
+        
+        row.innerHTML = `
+            <td class="p-3 font-medium text-white">${item.sacrifice}</td>
+            <td class="p-3">
+                <span class="category-badge ${categoryClass}">${item.category}</span>
+            </td>
+            <td class="p-3 text-center">${item.hoursSaved}</td>
+            <td class="p-3 text-right ${financialClass}">${formatCurrency(item.financialImpact)}</td>
+            <td class="p-3 text-center">${item.productivityScore}</td>
+            <td class="p-3 text-center">${item.healthScore}</td>
+            <td class="p-3 text-center ${moodClass}">${item.moodScore}</td>
+            <td class="p-3 text-right">${formatCurrency(item.initialCost)}</td>
+            <td class="p-3 text-center">${item.roiTimeline}</td>
+        `;
+        
+        tableBody.appendChild(row);
+    });
+}
+
+function getCategoryClass(category) {
+    switch(category) {
+        case 'Health': return 'category-health';
+        case 'Time': return 'category-time';
+        case 'Business': return 'category-business';
+        case 'Financial': return 'category-financial';
+        default: return '';
+    }
+}
+
+// Formulas tab initialization
+function initializeFormulas() {
+    const hourlyRateSlider = document.getElementById('hourly-rate');
+    const lifeExtensionSlider = document.getElementById('life-extension');
+    const qolMultiplierSlider = document.getElementById('qol-multiplier');
+    const baseProdSlider = document.getElementById('base-prod');
+    
+    // Initial calculations
+    updateTimeValue();
+    updateHealthRoi();
+    updateProductivityMultiplier();
+    
+    // Event listeners
+    hourlyRateSlider.addEventListener('input', updateTimeValue);
+    lifeExtensionSlider.addEventListener('input', updateHealthRoi);
+    qolMultiplierSlider.addEventListener('input', updateHealthRoi);
+    baseProdSlider.addEventListener('input', updateProductivityMultiplier);
+}
+
+function updateTimeValue() {
+    const hourlyRate = parseInt(document.getElementById('hourly-rate').value);
+    const timeValue = 65 * 52 * hourlyRate;
+    
+    document.getElementById('hourly-rate-display').textContent = formatCurrency(hourlyRate);
+    document.getElementById('hourly-rate-calc').textContent = formatCurrency(hourlyRate);
+    document.getElementById('time-value-result').textContent = formatCurrency(timeValue);
+}
+
+function updateHealthRoi() {
+    const lifeExtension = parseInt(document.getElementById('life-extension').value);
+    const qolMultiplier = parseInt(document.getElementById('qol-multiplier').value);
+    const healthRoi = 35 * lifeExtension * qolMultiplier;
+    
+    document.getElementById('life-extension-display').textContent = lifeExtension;
+    document.getElementById('qol-multiplier-display').textContent = formatCurrency(qolMultiplier);
+    document.getElementById('life-extension-calc').textContent = lifeExtension;
+    document.getElementById('qol-multiplier-calc').textContent = formatCurrency(qolMultiplier);
+    document.getElementById('health-roi-result').textContent = formatCurrency(healthRoi);
+}
+
+function updateProductivityMultiplier() {
+    const baseProd = parseInt(document.getElementById('base-prod').value);
+    const enhancedOutput = baseProd * (1 + 30 / 100);
+    
+    document.getElementById('base-prod-display').textContent = baseProd;
+    document.getElementById('base-prod-calc').textContent = baseProd;
+    document.getElementById('productivity-result').textContent = formatNumber(Math.round(enhancedOutput));
+}
+
+// Chart initialization
+function initializeChart() {
+    const ctx = document.getElementById('progressionChart').getContext('2d');
+    
+    progressionChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: monthlyProgressionData.map(d => `Month ${d.month}`),
+            datasets: [
+                {
+                    label: 'Cumulative Hours Saved',
+                    data: monthlyProgressionData.map(d => d.hours),
+                    borderColor: '#38bdf8',
+                    backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                    yAxisID: 'y',
+                    tension: 0.4
+                },
+                {
+                    label: 'Net Financial Gain ($)',
+                    data: monthlyProgressionData.map(d => d.financial),
+                    borderColor: '#4ade80',
+                    backgroundColor: 'rgba(74, 222, 128, 0.1)',
+                    yAxisID: 'y',
+                    tension: 0.4
+                },
+                {
+                    label: 'Productivity Score',
+                    data: monthlyProgressionData.map(d => d.productivity),
+                    borderColor: '#a78bfa',
+                    backgroundColor: 'rgba(167, 139, 250, 0.1)',
+                    yAxisID: 'y1',
+                    tension: 0.4
+                },
+                {
+                    label: 'Health Score',
+                    data: monthlyProgressionData.map(d => d.health),
+                    borderColor: '#f472b6',
+                    backgroundColor: 'rgba(244, 114, 182, 0.1)',
+                    yAxisID: 'y1',
+                    tension: 0.4
+                },
+                {
+                    label: 'Mood Score',
+                    data: monthlyProgressionData.map(d => d.mood),
+                    borderColor: '#facc15',
+                    backgroundColor: 'rgba(250, 204, 21, 0.1)',
+                    yAxisID: 'y1',
+                    tension: 0.4
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            scales: {
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Month',
+                        color: '#9ca3af'
+                    },
+                    ticks: {
+                        color: '#9ca3af'
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                },
+                y: {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    title: {
+                        display: true,
+                        text: 'Cumulative Values',
+                        color: '#9ca3af'
+                    },
+                    ticks: {
+                        color: '#9ca3af',
+                        callback: function(value) {
+                            return formatNumber(value);
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                },
+                y1: {
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    title: {
+                        display: true,
+                        text: 'Scores',
+                        color: '#9ca3af'
+                    },
+                    ticks: {
+                        color: '#9ca3af'
+                    },
+                    grid: {
+                        drawOnChartArea: false,
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#d1d5db',
+                        padding: 20
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(31, 41, 55, 0.8)',
+                    titleColor: '#d1d5db',
+                    bodyColor: '#d1d5db',
+                    borderColor: 'rgba(255, 255, 255, 0.2)',
+                    borderWidth: 1,
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.dataset.label === 'Net Financial Gain ($)') {
+                                label += formatCurrency(context.parsed.y);
+                            } else {
+                                label += formatNumber(context.parsed.y);
+                            }
+                            return label;
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+</script>
+ </body>
+</html>

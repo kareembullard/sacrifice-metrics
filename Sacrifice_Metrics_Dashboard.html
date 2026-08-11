@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&amp;family=Inter:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Sacrifice Metrics Dashboard
+  </title>
+  <link href="style.css" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  
+  
+  
+  
+ </head>
+ <body>
+  <div class="min-h-screen from-gray-900 via-gray-900 to-indigo-900/50">
+   <div class="section-content mx-auto p-4 sm:p-6 lg:p-8">
+    <header class="mb-8">
+     <h1 class="sm:text-5xl font-extrabold tracking-tight from-indigo-400 to-pink-500">
+      Sacrifice Metrics Dashboard
+     </h1>
+     <p class="mt-2">
+      Quantifying the impact of life choices.
+     </p>
+    </header>
+    <nav class="flex mb-8 p-2 backdrop-blur-sm nav-bar">
+     <div class="flex space-x-2 nav-content">
+      <button class="tab-button" data-tab="dashboard">
+       Dashboard
+      </button>
+      <button class="tab-button" data-tab="impact-table">
+       Impact Table
+      </button>
+      <button class="tab-button" data-tab="formulas">
+       Formulas
+      </button>
+      <button class="tab-button" data-tab="tracker">
+       Tracker
+      </button>
+     </div>
+    </nav>
+    <main>
+     <!-- Dashboard Tab -->
+     <div class="tab-content" id="dashboard">
+      <div class="space-y-6">
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card">
+         <h2 class="font-bold mb-4">
+          Total Annual Gains
+         </h2>
+         <div class="space-y-4">
+          <div class="flex items-center">
+           <span>
+            Time Freed:
+           </span>
+           <span class="font-bold" id="total-time">
+           </span>
+          </div>
+          <div class="flex items-center">
+           <span>
+            Net Financial Impact:
+           </span>
+           <span class="font-bold" id="total-financial">
+           </span>
+          </div>
+          <div class="flex items-center">
+           <span>
+            Productivity Gain:
+           </span>
+           <span class="font-bold" id="total-productivity">
+           </span>
+          </div>
+          <div class="flex items-center">
+           <span>
+            Health Improvement:
+           </span>
+           <span class="font-bold" id="total-health">
+           </span>
+          </div>
+          <div class="flex items-center">
+           <span>
+            Mood Net Change:
+           </span>
+           <span class="font-bold" id="total-mood">
+           </span>
+          </div>
+         </div>
+        </div>
+        <div class="card">
+         <h2 class="font-bold mb-4">
+          ROI by Category
+         </h2>
+         <div>
+          <table class="w-full">
+           <thead>
+            <tr>
+             <th class="p-2">
+              Category
+             </th>
+             <th class="p-2">
+              Investment
+             </th>
+             <th class="p-2">
+              Annual Return
+             </th>
+             <th class="p-2">
+              5-Year ROI
+             </th>
+            </tr>
+           </thead>
+           <tbody id="roi-table-body">
+           </tbody>
+          </table>
+         </div>
+        </div>
+       </div>
+       <div class="card w-full chart-container">
+        <h2 class="font-bold mb-4">
+         Metrics Progression Over 24 Months
+        </h2>
+        <canvas id="progressionChart">
+        </canvas>
+       </div>
+      </div>
+     </div>
+     <!-- Impact Table Tab -->
+     <div class="tab-content hidden" id="impact-table">
+      <div class="card w-full">
+       <h2 class="font-bold mb-4">
+        Enhanced Sacrifice Impact
+       </h2>
+       <div class="flex mb-4">
+        <div class="relative">
+         <select class="form-control py-2 pl-3 pr-10 focus:outline-none focus:ring-2 focus:ring-indigo-500" id="category-filter">
+          <option value="All">
+           All
+          </option>
+          <option value="Health">
+           Health
+          </option>
+          <option value="Time">
+           Time
+          </option>
+          <option value="Business">
+           Business
+          </option>
+          <option value="Financial">
+           Financial
+          </option>
+         </select>
+         <svg class="chevron-down" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="6 9 12 15 18 9">
+          </polyline>
+         </svg>
+        </div>
+       </div>
+       <div>
+        <table class="w-full">
+         <thead>
+          <tr>
+           <th class="p-3 cursor-pointer" data-sort="sacrifice">
+            Sacrifice
+            <span class="sort-icon">
+             ⇅
+            </span>
+           </th>
+           <th class="p-3 cursor-pointer" data-sort="category">
+            Category
+            <span class="sort-icon">
+             ⇅
+            </span>
+           </th>
+           <th class="p-3 cursor-pointer" data-sort="hoursSaved">
+            Hrs Saved/Wk
+            <span class="sort-icon">
+             ⇅
+            </span>
+           </th>
+           <th class="p-3 cursor-pointer" data-sort="financialImpact">
+            Annual Financial Impact
+            <span class="sort-icon">
+             ⇅
+            </span>
+           </th>
+           <th class="p-3 cursor-pointer" data-sort="productivityScore">
+            Prod. Score
+            <span class="sort-icon">
+             ⇅
+            </span>
+           </th>
+           <th class="p-3 cursor-pointer" data-sort="healthScore">
+            Health Score
+            <span class="sort-icon">
+             ⇅
+            </span>
+           </th>
+           <th class="p-3 cursor-pointer" data-sort="moodScore">
+            Mood Score
+            <span class="sort-icon">
+             ⇅
+            </span>
+           </th>
+           <th class="p-3 cursor-pointer" data-sort="initialCost">
+            Initial Cost
+            <span class="sort-icon">
+             ⇅
+            </span>
+           </th>
+           <th class="p-3 cursor-pointer" data-sort="roiTimeline">
+            ROI (Months)
+            <span class="sort-icon">
+             ⇅
+            </span>
+           </th>
+          </tr>
+         </thead>
+         <tbody id="sacrifice-table-body">
+         </tbody>
+        </table>
+       </div>
+      </div>
+     </div>
+     <!-- Formulas Tab -->
+     <div class="tab-content hidden" id="formulas">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+       <div class="card">
+        <h3 class="font-bold mb-2">
+         Time Value Calculation
+        </h3>
+        <p class="mb-4">
+         Annual Time Value = (Hrs Saved/Wk × 52) × Hourly Rate
+        </p>
+        <div class="mb-4">
+         <label class="block mb-2">
+          Your Hourly Rate:
+          <span id="hourly-rate-display">
+           $50
+          </span>
+         </label>
+         <input class="slider" id="hourly-rate" max="200" min="10" step="5" type="range" value="50"/>
+        </div>
+        <p>
+         Example: (65 × 52) ×
+         <span id="hourly-rate-calc">
+          $50
+         </span>
+         =
+         <span class="font-bold" id="time-value-result">
+          $169,000
+         </span>
+        </p>
+       </div>
+       <div class="card">
+        <h3 class="font-bold mb-2">
+         Compound Health Benefits
+        </h3>
+        <p class="mb-4">
+         Health ROI = (Health Score Gain × Life Extension Years × Quality of Life Multiplier)
+        </p>
+        <div class="mb-4">
+         <label class="block mb-2">
+          Life Extension:
+          <span id="life-extension-display">
+           5
+          </span>
+          years
+         </label>
+         <input class="slider" id="life-extension" max="15" min="1" type="range" value="5"/>
+        </div>
+        <div class="mb-4">
+         <label class="block mb-2">
+          QoL Multiplier:
+          <span id="qol-multiplier-display">
+           $100,000
+          </span>
+         </label>
+         <input class="slider" id="qol-multiplier" max="250000" min="25000" step="25000" type="range" value="100000"/>
+        </div>
+        <p>
+         Example: 35 ×
+         <span id="life-extension-calc">
+          5
+         </span>
+         ×
+         <span id="qol-multiplier-calc">
+          $100,000
+         </span>
+         =
+         <span class="font-bold" id="health-roi-result">
+          $17,500,000
+         </span>
+        </p>
+       </div>
+       <div class="card">
+        <h3 class="font-bold mb-2">
+         Productivity Multiplier
+        </h3>
+        <p class="mb-4">
+         Enhanced Output = Base Productivity × (1 + Prod. Gain/100)
+        </p>
+        <div class="mb-4">
+         <label class="block mb-2">
+          Base Productivity Units:
+          <span id="base-prod-display">
+           100
+          </span>
+         </label>
+         <input class="slider" id="base-prod" max="500" min="50" step="10" type="range" value="100"/>
+        </div>
+        <p>
+         Example:
+         <span id="base-prod-calc">
+          100
+         </span>
+         × (1 + 30/100) =
+         <span class="font-bold" id="productivity-result">
+          130
+         </span>
+         units
+        </p>
+       </div>
+      </div>
+     </div>
+     <!-- Tracker Tab -->
+     <div class="tab-content hidden" id="tracker">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+       <div class="card">
+        <h3 class="font-bold mb-4">
+         Daily Metrics to Track
+        </h3>
+        <ul class="list-disc list-inside space-y-2">
+         <li>
+          Hours saved from each sacrifice
+         </li>
+         <li>
+          Money saved/invested
+         </li>
+         <li>
+          Productivity rating (1-10)
+         </li>
+         <li>
+          Health feeling (1-10)
+         </li>
+         <li>
+          Mood score (1-10)
+         </li>
+         <li>
+          Tasks completed
+         </li>
+        </ul>
+       </div>
+       <div class="card">
+        <h3 class="font-bold mb-4">
+         Weekly Calculations
+        </h3>
+        <ul class="list-disc list-inside space-y-2">
+         <li>
+          Total hours reclaimed
+         </li>
+         <li>
+          Net financial position
+         </li>
+         <li>
+          Average scores across all metrics
+         </li>
+         <li>
+          Progress toward ROI break-even points
+         </li>
+        </ul>
+       </div>
+       <div class="card">
+        <h3 class="font-bold mb-4">
+         Monthly Analysis
+        </h3>
+        <ul class="list-disc list-inside space-y-2">
+         <li>
+          Trend analysis of all metrics
+         </li>
+         <li>
+          Adjustment recommendations
+         </li>
+         <li>
+          Sacrifice effectiveness ranking
+         </li>
+         <li>
+          Goal alignment assessment
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+    </main>
+   </div>
+  </div>
+  <script src="app.js">
+  </script>
+ </body>
+</html>
