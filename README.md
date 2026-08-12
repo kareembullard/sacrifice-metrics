@@ -6,13 +6,9 @@ A data-driven dashboard for quantifying the impact of life choices — tracking 
 
 ## Live Demo
 
-**HTML Version (no install needed):**
-Open `sacrifice-metrics-dashboard_index.html` in the `App_sacrifice-metrics-dashboard` folder — or deploy to GitHub Pages:
-```
-https://[your-github-username].github.io/sacrifice-metrics-dashboard/Sacrifice_Metrics_Dashboard.html
-```
+**Live:** [https://kareembullard.github.io/sacrifice-metrics/](https://kareembullard.github.io/sacrifice-metrics/)
 
-> This React version (`App_sacrifice-metrics-dashboard-React_2`) is the enhanced rebuild with TypeScript and component separation. The HTML version works without any build step.
+`index.html` (a copy of `Sacrifice_Metrics_Dashboard.html`) is served directly from GitHub Pages via relative-path `style.css`/`app.js` — no build step. `sacrifice-metrics-dashboard_index.html` is the enhanced React/TypeScript rebuild, kept for local development.
 
 ## Features
 
