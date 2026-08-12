@@ -1254,6 +1254,69 @@ main {
   
  </head>
  <body>
+<div id="kb-app-nav" style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;padding:.5rem 1rem;background:#181b21;color:#e5e7eb;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:13px;border-bottom:1px solid #2a2e37;position:relative;z-index:99999;box-sizing:border-box;">
+  <a href="https://kareembullard.github.io/" style="color:#e5e7eb;text-decoration:none;font-weight:600;white-space:nowrap;">🏠 Home</a>
+  <div style="position:relative;">
+    <button id="kb-apps-btn" type="button" style="background:#2563eb;color:#fff;border:none;border-radius:6px;padding:.3rem .7rem;font:inherit;cursor:pointer;">Apps ▾</button>
+    <div id="kb-apps-menu" style="display:none;position:absolute;top:130%;left:0;background:#181b21;border:1px solid #2a2e37;border-radius:8px;padding:.4rem;min-width:260px;max-height:70vh;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,.45);"></div>
+  </div>
+  <span id="kb-current-app" style="color:#9aa1ad;white-space:nowrap;"></span>
+</div>
+<script>
+(function () {
+  var KB_APPS = [
+    { group: "Personal Systems Suite", name: "Systems Catalog Explorer", repo: "systems-catalog-explorer-web" },
+    { group: "Personal Systems Suite", name: "Tool Inventory Browser", repo: "tool-inventory-browser-web" },
+    { group: "Personal Systems Suite", name: "Snippet & Shortcut Launcher", repo: "snippet-launcher-web" },
+    { group: "Personal Systems Suite", name: "Product / Income Calculator", repo: "product-income-calculator-web" },
+    { group: "Personal Systems Suite", name: "Food Inventory", repo: "food-inventory-web" },
+    { group: "Personal Systems Suite", name: "Quick Capture", repo: "quick-capture-web" },
+    { group: "Quizzes & Utilities", name: "Quiz Arcade", repo: "powerbi-quiz" },
+    { group: "Quizzes & Utilities", name: "AI Studio Renamer", repo: "ai-studio-renamer" },
+    { group: "Project Dashboards", name: "PM Dashboard", repo: "pm-dashboard" },
+    { group: "Project Dashboards", name: "Portfolio Dashboard", repo: "portfolio-dashboard" },
+    { group: "Project Dashboards", name: "WBS Portfolio", repo: "wbs-portfolio" },
+    { group: "Project Dashboards", name: "Sacrifice Metrics", repo: "sacrifice-metrics" },
+  ];
+  var CURRENT_REPO = "sacrifice-metrics";
+
+  var current = KB_APPS.find(function (a) { return a.repo === CURRENT_REPO; });
+  var currentSpan = document.getElementById("kb-current-app");
+  if (current && currentSpan) currentSpan.textContent = "— " + current.name;
+
+  var menu = document.getElementById("kb-apps-menu");
+  var groups = {};
+  KB_APPS.forEach(function (a) {
+    (groups[a.group] = groups[a.group] || []).push(a);
+  });
+  Object.keys(groups).forEach(function (g) {
+    var h = document.createElement("div");
+    h.textContent = g;
+    h.style.cssText = "color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:.4rem .5rem .2rem;";
+    menu.appendChild(h);
+    groups[g].forEach(function (a) {
+      var isCurrent = a.repo === CURRENT_REPO;
+      var link = document.createElement(isCurrent ? "span" : "a");
+      link.textContent = (isCurrent ? "● " : "") + a.name;
+      if (!isCurrent) link.href = "https://kareembullard.github.io/" + a.repo + "/";
+      link.style.cssText = "display:block;padding:.35rem .5rem;border-radius:5px;text-decoration:none;font-size:13px;" +
+        (isCurrent ? "color:#60a5fa;font-weight:600;" : "color:#e5e7eb;");
+      if (!isCurrent) {
+        link.addEventListener("mouseenter", function () { link.style.background = "#242832"; });
+        link.addEventListener("mouseleave", function () { link.style.background = "transparent"; });
+      }
+      menu.appendChild(link);
+    });
+  });
+
+  var btn = document.getElementById("kb-apps-btn");
+  btn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+  });
+  document.addEventListener("click", function () { menu.style.display = "none"; });
+})();
+</script>
   <div class="min-h-screen from-gray-900 via-gray-900 to-indigo-900/50">
    <div class="section-content mx-auto p-4 sm:p-6 lg:p-8">
     <header class="mb-8">
