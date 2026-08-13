@@ -62,7 +62,8 @@
   .filter-toolbar-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .6rem; margin-bottom: .8rem; }
 
   ul.entities { list-style: none; margin: 0; padding: 0; }
-  li.entity { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: .65rem .9rem; margin-bottom: .5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .4rem; }
+  li.entity { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: .65rem .9rem; margin-bottom: .5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .4rem; cursor: pointer; }
+  li.entity:hover { border-color: var(--accent); }
   li.entity .main { font-weight: 600; font-size: .92rem; }
   li.entity .meta { font-size: .78rem; color: var(--text-dim); }
   li.entity .actions { display: flex; gap: .4rem; }
@@ -692,6 +693,7 @@ function renderSacrifices() {
 
 function sacrificeRow(s) {
   const li = el("li", "entity");
+  li.addEventListener("click", () => openSacrificeForm(s.id));
   const left = el("div");
   left.appendChild(el("div", "main", s.sacrifice));
   const meta = el("div", "meta",
@@ -705,12 +707,6 @@ function sacrificeRow(s) {
   else if (s.financialImpact < 0) tags.appendChild(tagEl("cost " + formatCurrency(Math.abs(s.financialImpact)), "impact-cost"));
   left.appendChild(tags);
   li.appendChild(left);
-
-  const actions = el("div", "actions");
-  const editBtn = el("button", "btn small", "Edit");
-  editBtn.addEventListener("click", () => openSacrificeForm(s.id));
-  actions.appendChild(editBtn);
-  li.appendChild(actions);
   return li;
 }
 
@@ -801,6 +797,7 @@ function renderRoi() {
 
   state.roiCategories.forEach((r, i) => {
     const li = el("li", "entity");
+    li.addEventListener("click", () => openRoiForm(i));
     const left = el("div");
     left.appendChild(el("div", "main", r.category));
     left.appendChild(el("div", "meta",
@@ -813,11 +810,6 @@ function renderRoi() {
     else tags.appendChild(tagEl("no cash flow"));
     left.appendChild(tags);
     li.appendChild(left);
-    const actions = el("div", "actions");
-    const editBtn = el("button", "btn small", "Edit");
-    editBtn.addEventListener("click", () => openRoiForm(i));
-    actions.appendChild(editBtn);
-    li.appendChild(actions);
     ul.appendChild(li);
   });
 
@@ -958,6 +950,7 @@ function renderProgression() {
   rows.forEach(r => {
     const idx = state.progression.indexOf(r);
     const li = el("li", "entity");
+    li.addEventListener("click", () => openProgressionForm(idx));
     const left = el("div");
     left.appendChild(el("div", "main", "Month " + r.month));
     left.appendChild(el("div", "meta",
@@ -967,11 +960,6 @@ function renderProgression() {
     tags.appendChild(tagEl(r.financial >= 0 ? "net positive" : "net negative", r.financial >= 0 ? "impact-gain" : "impact-cost"));
     left.appendChild(tags);
     li.appendChild(left);
-    const actions = el("div", "actions");
-    const editBtn = el("button", "btn small", "Edit");
-    editBtn.addEventListener("click", () => openProgressionForm(idx));
-    actions.appendChild(editBtn);
-    li.appendChild(actions);
     ul.appendChild(li);
   });
 
