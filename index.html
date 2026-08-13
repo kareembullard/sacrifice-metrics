@@ -447,7 +447,7 @@ function num(input, fallback) {
 }
 
 // ---------- routing ----------
-function goRoute(route) { location.hash = "#/" + route; }
+function goRoute(route) { const h = "#/" + route; if (location.hash === h) render(); else location.hash = h; }
 
 function render() {
   const route = (location.hash.replace(/^#\/?/, "") || "overview").split("/")[0];
