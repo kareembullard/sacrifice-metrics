@@ -8,17 +8,16 @@ A data-driven dashboard for quantifying the impact of life choices — tracking 
 
 **Live:** [https://kareembullard.github.io/sacrifice-metrics/](https://kareembullard.github.io/sacrifice-metrics/)
 
-`index.html` (a copy of `Sacrifice_Metrics_Dashboard.html`) is served directly from GitHub Pages via relative-path `style.css`/`app.js` — no build step. `sacrifice-metrics-dashboard_index.html` is the enhanced React/TypeScript rebuild, kept for local development.
+`index.html` is a fully self-contained single-file app (inline CSS/JS, no external dependencies) served directly from GitHub Pages — no build step. `Sacrifice_Metrics_Dashboard.html`, `Sacrifice_Metrics_Dashboard-STANDALONE.html`, and `sacrifice-metrics-dashboard_index.html` are redirect stubs pointing to `index.html`, kept only so old bookmarks/links don't 404. The legacy `app.js`/`style.css` files are no longer referenced.
 
 ## Features
 
-- **Dashboard** — Summary view with key sacrifice metrics and visualizations
-- **Impact Table** — Structured breakdown of choices and their cascading effects
-- **Formulas** — The math behind the metrics (opportunity cost, ROI of sacrifice)
-- **Tracker** — Log and monitor ongoing sacrifices over time
-- Chart.js integration for data visualization
-- Dark-gradient UI (gray-900 → indigo-900)
-- Tabbed navigation between all four views
+- **Overview** — Summary stats and key sacrifice metrics as dependency-free CSS bar charts
+- **Sacrifices** — Structured breakdown of choices and their cascading effects, category filter pills, full CRUD
+- **ROI** — The math behind the metrics (opportunity cost, ROI of sacrifice), full CRUD
+- **Progression** — Log and monitor ongoing sacrifices over time, full CRUD
+- Light/dark theme toggle (shared portfolio-wide preference)
+- Every card is click-to-edit directly, no separate Edit button
 
 ## Tech Stack
 
