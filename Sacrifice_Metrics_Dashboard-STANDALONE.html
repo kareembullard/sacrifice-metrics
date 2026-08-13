@@ -1,1259 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&amp;family=Inter:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Sacrifice Metrics Dashboard
-  </title>
-  <style>
-/*
- * Converted to ProjectSuite CSS Architecture
- * Date: 2025-11-29 04:36:36
- * Bootstrap/utility classes mapped to ProjectSuite equivalents
- * Original backed up to: ./asset_backups
- */
-
-
-:root {
-  /* Colors */
-  --color-background: rgba(252, 252, 249, 1);
-  --color-surface: rgba(255, 255, 253, 1);
-  --color-text: rgba(19, 52, 59, 1);
-  --color-text-secondary: rgba(98, 108, 113, 1);
-  --color-primary: rgba(33, 128, 141, 1);
-  --color-primary-hover: rgba(29, 116, 128, 1);
-  --color-primary-active: rgba(26, 104, 115, 1);
-  --color-secondary: rgba(94, 82, 64, 0.12);
-  --color-secondary-hover: rgba(94, 82, 64, 0.2);
-  --color-secondary-active: rgba(94, 82, 64, 0.25);
-  --color-border: rgba(94, 82, 64, 0.2);
-  --color-btn-primary-text: rgba(252, 252, 249, 1);
-  --color-card-border: rgba(94, 82, 64, 0.12);
-  --color-card-border-inner: rgba(94, 82, 64, 0.12);
-  --color-error: rgba(192, 21, 47, 1);
-  --color-success: rgba(33, 128, 141, 1);
-  --color-warning: rgba(168, 75, 47, 1);
-  --color-info: rgba(98, 108, 113, 1);
-  --color-focus-ring: rgba(33, 128, 141, 0.4);
-  --color-select-caret: rgba(19, 52, 59, 0.8);
-
-  /* Common style patterns */
-  --focus-ring: 0 0 0 3px var(--color-focus-ring);
-  --focus-outline: 2px solid var(--color-primary);
-  --status-bg-opacity: 0.15;
-  --status-border-opacity: 0.25;
-  --select-caret-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23134252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  --select-caret-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-
-  /* RGB versions for opacity control */
-  --color-success-rgb: 33, 128, 141;
-  --color-error-rgb: 192, 21, 47;
-  --color-warning-rgb: 168, 75, 47;
-  --color-info-rgb: 98, 108, 113;
-
-  /* Typography */
-  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system,
-    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-family-mono: "Berkeley Mono", ui-monospace, SFMono-Regular, Menlo,
-    Monaco, Consolas, monospace;
-  --font-size-xs: 11px;
-  --font-size-sm: 12px;
-  --font-size-base: 14px;
-  --font-size-md: 14px;
-  --font-size-lg: 16px;
-  --font-size-xl: 18px;
-  --font-size-2xl: 20px;
-  --font-size-3xl: 24px;
-  --font-size-4xl: 30px;
-  --font-weight-normal: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 550;
-  --font-weight-bold: 600;
-  --line-height-tight: 1.2;
-  --line-height-normal: 1.5;
-  --letter-spacing-tight: -0.01em;
-
-  /* Spacing */
-  --space-0: 0;
-  --space-1: 1px;
-  --space-2: 2px;
-  --space-4: 4px;
-  --space-6: 6px;
-  --space-8: 8px;
-  --space-10: 10px;
-  --space-12: 12px;
-  --space-16: 16px;
-  --space-20: 20px;
-  --space-24: 24px;
-  --space-32: 32px;
-
-  /* Border Radius */
-  --radius-sm: 6px;
-  --radius-base: 8px;
-  --radius-md: 10px;
-  --radius-lg: 12px;
-  --radius-full: 9999px;
-
-  /* Shadows */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.02);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04),
-    0 2px 4px -1px rgba(0, 0, 0, 0.02);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04),
-    0 4px 6px -2px rgba(0, 0, 0, 0.02);
-  --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.15),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.03);
-
-  /* Animation */
-  --duration-fast: 150ms;
-  --duration-normal: 250ms;
-  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
-
-  /* Layout */
-  --container-sm: 640px;
-  --container-md: 768px;
-  --container-lg: 1024px;
-  --container-xl: 1280px;
-}
-
-/* Dark mode colors */
-@media (prefers-color-scheme: dark) {
+<head>
+<meta charset="utf-8">
+<title>Sacrifice Metrics</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Sacrifice Metrics quantifies the impact of life choices: opportunity cost, time reclaimed, financial trade-offs, ROI by category, and 24-month progression. Single-file demo web app.">
+<style>
   :root {
-    --color-background: rgba(31, 33, 33, 1);
-    --color-surface: rgba(38, 40, 40, 1);
-    --color-text: rgba(245, 245, 245, 1);
-    --color-text-secondary: rgba(167, 169, 169, 0.7);
-    --color-primary: rgba(50, 184, 198, 1);
-    --color-primary-hover: rgba(45, 166, 178, 1);
-    --color-primary-active: rgba(41, 150, 161, 1);
-    --color-secondary: rgba(119, 124, 124, 0.15);
-    --color-secondary-hover: rgba(119, 124, 124, 0.25);
-    --color-secondary-active: rgba(119, 124, 124, 0.3);
-    --color-border: rgba(119, 124, 124, 0.3);
-    --color-error: rgba(255, 84, 89, 1);
-    --color-success: rgba(50, 184, 198, 1);
-    --color-warning: rgba(230, 129, 97, 1);
-    --color-info: rgba(167, 169, 169, 1);
-    --color-focus-ring: rgba(50, 184, 198, 0.4);
-    --color-btn-primary-text: rgba(19, 52, 59, 1);
-    --color-card-border: rgba(119, 124, 124, 0.2);
-    --color-card-border-inner: rgba(119, 124, 124, 0.15);
-    --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.1),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-    --button-border-secondary: rgba(119, 124, 124, 0.2);
-    --color-border-secondary: rgba(119, 124, 124, 0.2);
-    --color-select-caret: rgba(245, 245, 245, 0.8);
-
-    /* Common style patterns - updated for dark mode */
-    --focus-ring: 0 0 0 3px var(--color-focus-ring);
-    --focus-outline: 2px solid var(--color-primary);
-    --status-bg-opacity: 0.15;
-    --status-border-opacity: 0.25;
-    --select-caret-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23134252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    --select-caret-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-
-    /* RGB versions for dark mode */
-    --color-success-rgb: 50, 184, 198;
-    --color-error-rgb: 255, 84, 89;
-    --color-warning-rgb: 230, 129, 97;
-    --color-info-rgb: 167, 169, 169;
+    --bg: #f7f8fa; --surface: #ffffff; --border: #e2e5ea; --text: #1a1d23; --text-dim: #6b7280;
+    --accent: #2563eb; --accent-dim: #dbeafe; --radius: 10px;
+    --ok: #16a34a; --ok-dim: #dcfce7; --warn: #d97706; --warn-dim: #fef3c7; --bad: #dc2626; --bad-dim: #fee2e2;
   }
-}
-
-/* Data attribute for manual theme switching */
-[data-color-scheme="dark"] {
-  --color-background: rgba(31, 33, 33, 1);
-  --color-surface: rgba(38, 40, 40, 1);
-  --color-text: rgba(245, 245, 245, 1);
-  --color-text-secondary: rgba(167, 169, 169, 0.7);
-  --color-primary: rgba(50, 184, 198, 1);
-  --color-primary-hover: rgba(45, 166, 178, 1);
-  --color-primary-active: rgba(41, 150, 161, 1);
-  --color-secondary: rgba(119, 124, 124, 0.15);
-  --color-secondary-hover: rgba(119, 124, 124, 0.25);
-  --color-secondary-active: rgba(119, 124, 124, 0.3);
-  --color-border: rgba(119, 124, 124, 0.3);
-  --color-error: rgba(255, 84, 89, 1);
-  --color-success: rgba(50, 184, 198, 1);
-  --color-warning: rgba(230, 129, 97, 1);
-  --color-info: rgba(167, 169, 169, 1);
-  --color-focus-ring: rgba(50, 184, 198, 0.4);
-  --color-btn-primary-text: rgba(19, 52, 59, 1);
-  --color-card-border: rgba(119, 124, 124, 0.15);
-  --color-card-border-inner: rgba(119, 124, 124, 0.15);
-  --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-  --color-border-secondary: rgba(119, 124, 124, 0.2);
-  --color-select-caret: rgba(245, 245, 245, 0.8);
-
-  /* Common style patterns - updated for dark mode */
-  --focus-ring: 0 0 0 3px var(--color-focus-ring);
-  --focus-outline: 2px solid var(--color-primary);
-  --status-bg-opacity: 0.15;
-  --status-border-opacity: 0.25;
-  --select-caret-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23134252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  --select-caret-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-
-  /* RGB versions for dark mode */
-  --color-success-rgb: 50, 184, 198;
-  --color-error-rgb: 255, 84, 89;
-  --color-warning-rgb: 230, 129, 97;
-  --color-info-rgb: 167, 169, 169;
-}
-
-[data-color-scheme="light"] {
-  --color-background: rgba(252, 252, 249, 1);
-  --color-surface: rgba(255, 255, 253, 1);
-  --color-text: rgba(19, 52, 59, 1);
-  --color-text-secondary: rgba(98, 108, 113, 1);
-  --color-primary: rgba(33, 128, 141, 1);
-  --color-primary-hover: rgba(29, 116, 128, 1);
-  --color-primary-active: rgba(26, 104, 115, 1);
-  --color-secondary: rgba(94, 82, 64, 0.12);
-  --color-secondary-hover: rgba(94, 82, 64, 0.2);
-  --color-secondary-active: rgba(94, 82, 64, 0.25);
-  --color-border: rgba(94, 82, 64, 0.2);
-  --color-btn-primary-text: rgba(252, 252, 249, 1);
-  --color-card-border: rgba(94, 82, 64, 0.12);
-  --color-card-border-inner: rgba(94, 82, 64, 0.12);
-  --color-error: rgba(192, 21, 47, 1);
-  --color-success: rgba(33, 128, 141, 1);
-  --color-warning: rgba(168, 75, 47, 1);
-  --color-info: rgba(98, 108, 113, 1);
-  --color-focus-ring: rgba(33, 128, 141, 0.4);
-
-  /* RGB versions for light mode */
-  --color-success-rgb: 33, 128, 141;
-  --color-error-rgb: 192, 21, 47;
-  --color-warning-rgb: 168, 75, 47;
-  --color-info-rgb: 98, 108, 113;
-}
-
-/* Base styles */
-html {
-  font-size: var(--font-size-base);
-  font-family: var(--font-family-base);
-  line-height: var(--line-height-normal);
-  color: var(--color-text);
-  background-color: var(--color-background);
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
-
-/* Typography */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-  font-weight: var(--font-weight-semibold);
-  line-height: var(--line-height-tight);
-  color: var(--color-text);
-  letter-spacing: var(--letter-spacing-tight);
-}
-
-h1 {
-  font-size: var(--font-size-4xl);
-}
-h2 {
-  font-size: var(--font-size-3xl);
-}
-h3 {
-  font-size: var(--font-size-2xl);
-}
-h4 {
-  font-size: var(--font-size-xl);
-}
-h5 {
-  font-size: var(--font-size-lg);
-}
-h6 {
-  font-size: var(--font-size-md);
-}
-
-p {
-  margin: 0 0 var(--space-16) 0;
-}
-
-a {
-  color: var(--color-primary);
-  text-decoration: none;
-  transition: color var(--duration-fast) var(--ease-standard);
-}
-
-a:hover {
-  color: var(--color-primary-hover);
-}
-
-code,
-pre {
-  font-family: var(--font-family-mono);
-  font-size: calc(var(--font-size-base) * 0.95);
-  background-color: var(--color-secondary);
-  border-radius: var(--radius-sm);
-}
-
-code {
-  padding: var(--space-1) var(--space-4);
-}
-
-pre {
-  padding: var(--space-16);
-  margin: var(--space-16) 0;
-  overflow: auto;
-  border: 1px solid var(--color-border);
-}
-
-pre code {
-  background: none;
-  padding: 0;
-}
-
-/* Buttons */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-8) var(--space-16);
-  border-radius: var(--radius-base);
-  font-size: var(--font-size-base);
-  font-weight: 500;
-  line-height: 1.5;
-  cursor: pointer;
-  transition: all var(--duration-normal) var(--ease-standard);
-  border: none;
-  text-decoration: none;
-  position: relative;
-}
-
-.btn:focus-visible {
-  outline: none;
-  box-shadow: var(--focus-ring);
-}
-
-.btn--primary {
-  background: var(--color-primary);
-  color: var(--color-btn-primary-text);
-}
-
-.btn--primary:hover {
-  background: var(--color-primary-hover);
-}
-
-.btn--primary:active {
-  background: var(--color-primary-active);
-}
-
-.btn--secondary {
-  background: var(--color-secondary);
-  color: var(--color-text);
-}
-
-.btn--secondary:hover {
-  background: var(--color-secondary-hover);
-}
-
-.btn--secondary:active {
-  background: var(--color-secondary-active);
-}
-
-.btn--outline {
-  background: transparent;
-  border: 1px solid var(--color-border);
-  color: var(--color-text);
-}
-
-.btn--outline:hover {
-  background: var(--color-secondary);
-}
-
-.btn--sm {
-  padding: var(--space-4) var(--space-12);
-  font-size: var(--font-size-sm);
-  border-radius: var(--radius-sm);
-}
-
-.btn--lg {
-  padding: var(--space-10) var(--space-20);
-  font-size: var(--font-size-lg);
-  border-radius: var(--radius-md);
-}
-
-.btn--full-width {
-  width: 100%;
-}
-
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* Form elements */
-.form-control {
-  display: block;
-  width: 100%;
-  padding: var(--space-8) var(--space-12);
-  font-size: var(--font-size-md);
-  line-height: 1.5;
-  color: var(--color-text);
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-base);
-  transition: border-color var(--duration-fast) var(--ease-standard),
-    box-shadow var(--duration-fast) var(--ease-standard);
-}
-
-textarea.form-control {
-  font-family: var(--font-family-base);
-  font-size: var(--font-size-base);
-}
-
-select.form-control {
-  padding: var(--space-8) var(--space-12);
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-image: var(--select-caret-light);
-  background-repeat: no-repeat;
-  background-position: right var(--space-12) center;
-  background-size: 16px;
-  padding-right: var(--space-32);
-}
-
-/* Add a dark mode specific caret */
-@media (prefers-color-scheme: dark) {
-  select.form-control {
-    background-image: var(--select-caret-dark);
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0f1115; --surface: #181b21; --border: #2a2e37; --text: #e5e7eb; --text-dim: #9aa1ad; --accent: #60a5fa; --accent-dim: #1e3a5f; --ok: #4ade80; --ok-dim: #14361f; --warn: #fbbf24; --warn-dim: #3a2c0d; --bad: #f87171; --bad-dim: #3a1414; }
   }
-}
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+  h1 { font-size: 1.5rem; margin: 0 0 .25rem; }
+  .sub { color: var(--text-dim); font-size: .92rem; margin: 0 0 1rem; }
+  .privacy-note { font-size: .78rem; color: var(--text-dim); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: .6rem .8rem; margin-bottom: 1.25rem; }
 
-/* Also handle data-color-scheme */
-[data-color-scheme="dark"] select.form-control {
-  background-image: var(--select-caret-dark);
-}
+  nav.top { display: flex; gap: 1rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: .8rem; flex-wrap: wrap; }
+  nav.top a { color: var(--text-dim); text-decoration: none; font-size: .88rem; cursor: pointer; }
+  nav.top a.active, nav.top a:hover { color: var(--accent); }
 
-[data-color-scheme="light"] select.form-control {
-  background-image: var(--select-caret-light);
-}
-
-.form-control:focus {
-  border-color: var(--color-primary);
-  outline: var(--focus-outline);
-}
-
-.form-label {
-  display: block;
-  margin-bottom: var(--space-8);
-  font-weight: var(--font-weight-medium);
-  font-size: var(--font-size-sm);
-}
-
-.form-group {
-  margin-bottom: var(--space-16);
-}
-
-/* Card component */
-.card {
-  background-color: var(--color-surface);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-card-border);
-  box-shadow: var(--shadow-sm);
-  overflow: hidden;
-  transition: box-shadow var(--duration-normal) var(--ease-standard);
-}
-
-.card:hover {
-  box-shadow: var(--shadow-md);
-}
-
-.card__body {
-  padding: var(--space-16);
-}
-
-.card__header,
-.card__footer {
-  padding: var(--space-16);
-  border-bottom: 1px solid var(--color-card-border-inner);
-}
-
-/* Status indicators - simplified with CSS variables */
-.status {
-  display: inline-flex;
-  align-items: center;
-  padding: var(--space-6) var(--space-12);
-  border-radius: var(--radius-full);
-  font-weight: var(--font-weight-medium);
-  font-size: var(--font-size-sm);
-}
-
-.status--success {
-  background-color: rgba(
-    var(--color-success-rgb, 33, 128, 141),
-    var(--status-bg-opacity)
-  );
-  color: var(--color-success);
-  border: 1px solid
-    rgba(var(--color-success-rgb, 33, 128, 141), var(--status-border-opacity));
-}
-
-.status--error {
-  background-color: rgba(
-    var(--color-error-rgb, 192, 21, 47),
-    var(--status-bg-opacity)
-  );
-  color: var(--color-error);
-  border: 1px solid
-    rgba(var(--color-error-rgb, 192, 21, 47), var(--status-border-opacity));
-}
-
-.status--warning {
-  background-color: rgba(
-    var(--color-warning-rgb, 168, 75, 47),
-    var(--status-bg-opacity)
-  );
-  color: var(--color-warning);
-  border: 1px solid
-    rgba(var(--color-warning-rgb, 168, 75, 47), var(--status-border-opacity));
-}
-
-.status--info {
-  background-color: rgba(
-    var(--color-info-rgb, 98, 108, 113),
-    var(--status-bg-opacity)
-  );
-  color: var(--color-info);
-  border: 1px solid
-    rgba(var(--color-info-rgb, 98, 108, 113), var(--status-border-opacity));
-}
-
-/* Container layout */
-.section-content {
-  width: 100%;
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: var(--space-16);
-  padding-left: var(--space-16);
-}
-
-@media (min-width: 640px) {
-  .section-content {
-    max-width: var(--container-sm);
+  input[type=search], input[type=text], input[type=number], input[type=date], select, textarea {
+    width: 100%; padding: .5rem .7rem; border: 1px solid var(--border); border-radius: var(--radius);
+    background: var(--surface); color: var(--text); font-size: .9rem; font-family: inherit;
   }
-}
-@media (min-width: 768px) {
-  .section-content {
-    max-width: var(--container-md);
-  }
-}
-@media (min-width: 1024px) {
-  .section-content {
-    max-width: var(--container-lg);
-  }
-}
-@media (min-width: 1280px) {
-  .section-content {
-    max-width: var(--container-xl);
-  }
-}
-
-/* Utility classes */
-.flex {
-  display: flex;
-}
-.flex-col {
-  flex-direction: column;
-}
-.items-center {
-  align-items: center;
-}
-.justify-center {
-  justify-content: center;
-}
-.justify-between {
-  justify-content: space-between;
-}
-.gap-4 {
-  gap: var(--space-4);
-}
-.gap-8 {
-  gap: var(--space-8);
-}
-.gap-16 {
-  gap: var(--space-16);
-}
-
-.block {
-  display: block;
-}
-.hidden {
-  display: none;
-}
-
-/* Accessibility */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-:focus-visible {
-  outline: var(--focus-outline);
-  outline-offset: 2px;
-}
-
-/* Dark mode specifics */
-[data-color-scheme="dark"] .btn--outline {
-  border: 1px solid var(--color-border-secondary);
-}
-
-@font-face {
-  font-family: 'FKGroteskNeue';
-  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2')
-    format('woff2');
-}
-
-/* Import the design system first */
-:root {
-  /* Colors */
-  --color-background: rgba(252, 252, 249, 1);
-  --color-surface: rgba(255, 255, 253, 1);
-  --color-text: rgba(19, 52, 59, 1);
-  --color-text-secondary: rgba(98, 108, 113, 1);
-  --color-primary: rgba(33, 128, 141, 1);
-  --color-primary-hover: rgba(29, 116, 128, 1);
-  --color-primary-active: rgba(26, 104, 115, 1);
-  --color-secondary: rgba(94, 82, 64, 0.12);
-  --color-secondary-hover: rgba(94, 82, 64, 0.2);
-  --color-secondary-active: rgba(94, 82, 64, 0.25);
-  --color-border: rgba(94, 82, 64, 0.2);
-  --color-btn-primary-text: rgba(252, 252, 249, 1);
-  --color-card-border: rgba(94, 82, 64, 0.12);
-  --color-card-border-inner: rgba(94, 82, 64, 0.12);
-  --color-error: rgba(192, 21, 47, 1);
-  --color-success: rgba(33, 128, 141, 1);
-  --color-warning: rgba(168, 75, 47, 1);
-  --color-info: rgba(98, 108, 113, 1);
-  --color-focus-ring: rgba(33, 128, 141, 0.4);
-  --color-select-caret: rgba(19, 52, 59, 0.8);
-
-  /* Common style patterns */
-  --focus-ring: 0 0 0 3px var(--color-focus-ring);
-  --focus-outline: 2px solid var(--color-primary);
-  --status-bg-opacity: 0.15;
-  --status-border-opacity: 0.25;
-
-  /* RGB versions for opacity control */
-  --color-success-rgb: 33, 128, 141;
-  --color-error-rgb: 192, 21, 47;
-  --color-warning-rgb: 168, 75, 47;
-  --color-info-rgb: 98, 108, 113;
-
-  /* Typography */
-  --font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-size-xs: 11px;
-  --font-size-sm: 12px;
-  --font-size-base: 14px;
-  --font-size-md: 14px;
-  --font-size-lg: 16px;
-  --font-size-xl: 18px;
-  --font-size-2xl: 20px;
-  --font-size-3xl: 24px;
-  --font-size-4xl: 30px;
-  --font-weight-normal: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 550;
-  --font-weight-bold: 600;
-  --line-height-tight: 1.2;
-  --line-height-normal: 1.5;
-  --letter-spacing-tight: -0.01em;
-
-  /* Spacing */
-  --space-0: 0;
-  --space-1: 1px;
-  --space-2: 2px;
-  --space-4: 4px;
-  --space-6: 6px;
-  --space-8: 8px;
-  --space-10: 10px;
-  --space-12: 12px;
-  --space-16: 16px;
-  --space-20: 20px;
-  --space-24: 24px;
-  --space-32: 32px;
-
-  /* Border Radius */
-  --radius-sm: 6px;
-  --radius-base: 8px;
-  --radius-md: 10px;
-  --radius-lg: 12px;
-  --radius-full: 9999px;
-
-  /* Shadows */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.02);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
-
-  /* Animation */
-  --duration-fast: 150ms;
-  --duration-normal: 250ms;
-  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Dark mode colors */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: rgba(31, 33, 33, 1);
-    --color-surface: rgba(38, 40, 40, 1);
-    --color-text: rgba(245, 245, 245, 1);
-    --color-text-secondary: rgba(167, 169, 169, 0.7);
-    --color-primary: rgba(50, 184, 198, 1);
-    --color-primary-hover: rgba(45, 166, 178, 1);
-    --color-primary-active: rgba(41, 150, 161, 1);
-    --color-secondary: rgba(119, 124, 124, 0.15);
-    --color-secondary-hover: rgba(119, 124, 124, 0.25);
-    --color-secondary-active: rgba(119, 124, 124, 0.3);
-    --color-border: rgba(119, 124, 124, 0.3);
-    --color-error: rgba(255, 84, 89, 1);
-    --color-success: rgba(50, 184, 198, 1);
-    --color-warning: rgba(230, 129, 97, 1);
-    --color-info: rgba(167, 169, 169, 1);
-    --color-focus-ring: rgba(50, 184, 198, 0.4);
-    --color-btn-primary-text: rgba(19, 52, 59, 1);
-    --color-card-border: rgba(119, 124, 124, 0.2);
-    --color-card-border-inner: rgba(119, 124, 124, 0.15);
-    --color-border-secondary: rgba(119, 124, 124, 0.2);
-    --color-select-caret: rgba(245, 245, 245, 0.8);
-
-    /* RGB versions for dark mode */
-    --color-success-rgb: 50, 184, 198;
-    --color-error-rgb: 255, 84, 89;
-    --color-warning-rgb: 230, 129, 97;
-    --color-info-rgb: 167, 169, 169;
-  }
-}
-
-/* Base styles */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-family: var(--font-family-base);
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-normal);
-  -webkit-font-smoothing: antialiased;
-}
-
-body {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #312e81 100%);
-  color: #ffffff;
-  min-height: 100vh;
-  font-family: var(--font-family-base);
-}
-
-/* Layout utilities */
-.min-h-screen {
-  min-height: 100vh;
-}
-
-.section-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Spacing utilities */
-
-@media (min-width: 640px) {
-  .section-content { padding: 0 1.5rem; }
-  .sm\\:p-6 { padding: 1.5rem; }
-}
-
-@media (min-width: 1024px) {
-  .section-content { padding: 0 2rem; }
-  .lg\\:p-8 { padding: 2rem; }
-}
-
-/* Typography */
-.text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
-.text-5xl { font-size: 3rem; line-height: 1; }
-.text-2xl { font-size: 1.5rem; line-height: 2rem; }
-.text-xl { font-size: 1.25rem; line-height: 1.75rem; }
-.text-lg { font-size: 1.125rem; line-height: 1.75rem; }
-.text-sm { font-size: 0.875rem; line-height: 1.25rem; }
-
-.font-extrabold { font-weight: 800; }
-.font-bold { font-weight: 700; }
-.font-medium { font-weight: 500; }
-.font-semibold { font-weight: 600; }
-
-.tracking-tight { letter-spacing: -0.025em; }
-
-/* Text alignment */
-
-/* Text colors */
-.text-white { color: #ffffff; }
-.text-gray-300 { color: #d1d5db; }
-.text-gray-400 { color: #9ca3af; }
-.text-blue-400 { color: #60a5fa; }
-.text-green-400 { color: #34d399; }
-.text-red-400 { color: #f87171; }
-.text-purple-400 { color: #a78bfa; }
-.text-yellow-400 { color: #fbbf24; }
-.text-indigo-400 { color: #818cf8; }
-.text-pink-500 { color: #ec4899; }
-.text-transparent { color: transparent; }
-
-/* Gradient text */
-.bg-clip-text {
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-
-.bg-gradient-to-r {
-  background-image: linear-gradient(to right, #818cf8, #ec4899);
-}
-
-/* Flexbox utilities */
-.flex { display: flex; }
-.justify-center { justify-content: center; }
-.justify-between { justify-content: space-between; }
-.justify-end { justify-content: flex-end; }
-.items-center { align-items: center; }
-
-.space-x-2 > :not([hidden]) ~ :not([hidden]) {
-  margin-right: 0;
-  margin-left: 0.5rem;
-}
-
-.space-y-4 > :not([hidden]) ~ :not([hidden]) {
-  margin-top: 1rem;
-  margin-bottom: 0;
-}
-
-.space-y-6 > :not([hidden]) ~ :not([hidden]) {
-  margin-top: 1.5rem;
-  margin-bottom: 0;
-}
-
-.space-y-2 > :not([hidden]) ~ :not([hidden]) {
-  margin-top: 0.5rem;
-  margin-bottom: 0;
-}
-
-/* Grid system */
-.grid {
-  display: grid;
-}
-
-.grid-cols-1 {
-  grid-template-columns: repeat(1, minmax(0, 1fr));
-}
-
-.gap-6 {
-  gap: 1.5rem;
-}
-
-@media (min-width: 768px) {
-  .md\\:grid-cols-2 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .md\\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-/* Card component */
-.card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border-radius: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
-  transition: all 0.3s ease;
-}
-
-.card:hover {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
-}
-
-.w-full { width: 100%; }
-
-/* Navigation */
-nav {
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(4px);
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 2rem;
-}
-
-nav > div {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.tab-button {
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  border-radius: 0.375rem;
-  transition: all 0.2s ease;
-  border: none;
-  background: transparent;
-  color: #d1d5db;
-  cursor: pointer;
-}
-
-.tab-button:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-}
-
-.tab-button.active {
-  background: #4f46e5;
-  color: #ffffff;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.tab-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.4);
-}
-
-/* Tab content */
-.tab-content {
-  display: block;
-  animation: fadeIn 0.3s ease;
-}
-
-.tab-content.hidden {
-  display: none;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Table styling */
-.overflow-x-auto {
-  overflow-x: auto;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th, td {
-  text-align: left;
-  padding: 0.75rem;
-  border-bottom: 1px solid rgba(107, 114, 128, 0.3);
-}
-
-th {
-  cursor: pointer;
-  user-select: none;
-  transition: background-color 0.2s ease;
-}
-
-th:hover {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-tbody tr:hover {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.sort-icon {
-  color: #6b7280;
-  font-size: 0.875rem;
-  margin-left: 0.25rem;
-}
-
-.sort-icon.asc {
-  color: #818cf8;
-}
-
-.sort-icon.desc {
-  color: #818cf8;
-}
-
-/* Category badges */
-.category-badge {
-  display: inline-block;
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  border-radius: 9999px;
-}
-
-.category-health {
-  background: rgba(52, 211, 153, 0.2);
-  color: #34d399;
-}
-
-.category-time {
-  background: rgba(96, 165, 250, 0.2);
-  color: #60a5fa;
-}
-
-.category-business {
-  background: rgba(167, 139, 250, 0.2);
-  color: #a78bfa;
-}
-
-.category-financial {
-  background: rgba(251, 191, 36, 0.2);
-  color: #fbbf24;
-}
-
-/* Form elements */
-.form-control {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #ffffff;
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.375rem;
-  font-size: 0.875rem;
-  transition: all 0.2s ease;
-}
-
-.form-control:focus {
-  outline: none;
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.4);
-}
-
-.form-control option {
-  background: #1f2937;
-  color: #ffffff;
-}
-
-.relative {
-  position: relative;
-}
-
-.chevron-down {
-  position: absolute;
-  top: 50%;
-  right: 0.75rem;
-  transform: translateY(-50%);
-  width: 1rem;
-  height: 1rem;
-  color: #9ca3af;
-  pointer-events: none;
-}
-
-/* Sliders */
-.slider {
-  width: 100%;
-  height: 0.5rem;
-  background: #374151;
-  border-radius: 0.5rem;
-  outline: none;
-  -webkit-appearance: none;
-  appearance: none;
-  cursor: pointer;
-}
-
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 1.25rem;
-  height: 1.25rem;
-  background: #4f46e5;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.slider::-webkit-slider-thumb:hover {
-  background: #4338ca;
-  transform: scale(1.1);
-}
-
-.slider::-moz-range-thumb {
-  width: 1.25rem;
-  height: 1.25rem;
-  background: #4f46e5;
-  border-radius: 50%;
-  cursor: pointer;
-  border: none;
-  transition: all 0.2s ease;
-}
-
-.slider::-moz-range-thumb:hover {
-  background: #4338ca;
-  transform: scale(1.1);
-}
-
-/* Chart container */
-.chart-container {
-  height: 500px;
-  position: relative;
-}
-
-.chart-container canvas {
-  max-height: 400px;
-  width: 100% !important;
-}
-
-/* Lists */
-.list-disc {
-  list-style-type: disc;
-}
-
-.list-inside {
-  list-style-position: inside;
-}
-
-/* Utility classes */
-.hidden {
-  display: none !important;
-}
-
-.block {
-  display: block;
-}
-
-.cursor-pointer {
-  cursor: pointer;
-}
-
-.transition-all {
-  transition: all 0.2s ease;
-}
-
-/* Financial and mood colors */
-.financial-positive {
-  color: #34d399;
-}
-
-.financial-negative {
-  color: #f87171;
-}
-
-.mood-negative {
-  color: #f87171;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .section-content {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
-
-  .text-4xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-  }
-
-  .text-5xl {
-    font-size: 2.25rem;
-    line-height: 2.5rem;
-  }
-
-  .card {
-    padding: 1rem;
-  }
-
-  .overflow-x-auto {
-    -webkit-overflow-scrolling: touch;
-  }
-
-  nav > div {
-    flex-wrap: wrap;
-    gap: 0.25rem;
-  }
-
-  .tab-button {
-    font-size: 0.75rem;
-    padding: 0.375rem 0.75rem;
-  }
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
-}
-
-/* Ensure proper spacing */
-header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-main {
-  width: 100%;
-}
+  input[type=range] { width: 100%; accent-color: var(--accent); }
+
+  .btn { padding: .35rem .8rem; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: .8rem; cursor: pointer; }
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+  .btn.primary { background: var(--accent); color: #fff; border-color: transparent; font-weight: 600; }
+  .btn.primary:hover { color: #fff; filter: brightness(1.08); }
+  .btn.danger:hover { border-color: var(--bad); color: var(--bad); }
+  .btn.small { padding: .2rem .5rem; font-size: .74rem; }
+
+  .edit-toolbar { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; font-size: .8rem; color: var(--text-dim); margin-bottom: 1rem; }
+
+  .tag { display: inline-block; background: var(--bg); border: 1px solid var(--border); border-radius: 999px; padding: .1rem .55rem; font-size: .74rem; color: var(--text-dim); margin-left: .35rem; }
+  .tag.cat-health { background: var(--ok-dim); color: var(--ok); border-color: transparent; }
+  .tag.cat-time { background: var(--accent-dim); color: var(--accent); border-color: transparent; }
+  .tag.cat-business { background: var(--warn-dim); color: var(--warn); border-color: transparent; }
+  .tag.cat-financial { background: var(--bg); color: var(--text-dim); }
+  .tag.impact-gain { background: var(--ok-dim); color: var(--ok); border-color: transparent; }
+  .tag.impact-cost { background: var(--bad-dim); color: var(--bad); border-color: transparent; }
+  .count { color: var(--text-dim); font-weight: 400; font-size: .85rem; }
+  .empty { color: var(--text-dim); font-style: italic; font-size: .88rem; padding: .3rem 0; }
+  footer { margin-top: 2.5rem; text-align: center; font-size: .78rem; color: var(--text-dim); }
+  footer a { color: var(--text-dim); }
+
+  .filter-bar { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: .8rem; }
+  .filter-group { min-width: 160px; }
+  .fg-label { display: block; font-size: .74rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: .02em; margin-bottom: .3rem; }
+  .pill-scroll { display: flex; flex-wrap: wrap; gap: .35rem; }
+  .pill { border: 1px solid var(--border); background: var(--surface); color: var(--text-dim); border-radius: 999px; padding: .2rem .65rem; font-size: .78rem; cursor: pointer; }
+  .pill.active { background: var(--accent-dim); color: var(--accent); border-color: transparent; font-weight: 600; }
+  .filter-toolbar-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .6rem; margin-bottom: .8rem; }
+
+  ul.entities { list-style: none; margin: 0; padding: 0; }
+  li.entity { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: .65rem .9rem; margin-bottom: .5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .4rem; }
+  li.entity .main { font-weight: 600; font-size: .92rem; }
+  li.entity .meta { font-size: .78rem; color: var(--text-dim); }
+  li.entity .actions { display: flex; gap: .4rem; }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .8rem; margin-bottom: 1.5rem; }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: .9rem 1rem; }
+  .stat-card .num { font-size: 1.5rem; font-weight: 700; }
+  .stat-card .num.pos { color: var(--ok); }
+  .stat-card .num.neg { color: var(--bad); }
+  .stat-card .label { font-size: .78rem; color: var(--text-dim); }
+
+  .section { margin-top: 1.5rem; }
+  .section h2 { font-size: 1.02rem; border-bottom: 2px solid var(--border); padding-bottom: .35rem; margin-bottom: .6rem; }
+  .section p.note { color: var(--text-dim); font-size: .82rem; margin: .2rem 0 .8rem; }
+
+  .bar-row { display: flex; align-items: center; gap: .6rem; margin-bottom: .5rem; font-size: .82rem; }
+  .bar-row .bar-label { width: 110px; flex-shrink: 0; color: var(--text-dim); }
+  .bar-row.wide .bar-label { width: 190px; }
+  .bar-track { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 999px; height: 14px; overflow: hidden; }
+  .bar-fill { height: 100%; background: var(--accent); border-radius: 999px; }
+  .bar-fill.pos { background: var(--ok); }
+  .bar-fill.neg { background: var(--bad); }
+  .bar-fill.inf { background: var(--warn); }
+  .bar-row .bar-val { width: 96px; text-align: right; flex-shrink: 0; color: var(--text-dim); }
+
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: .9rem; }
+  .calc-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; }
+  .calc-card h3 { font-size: .95rem; margin: 0 0 .3rem; }
+  .calc-card .formula { font-size: .8rem; color: var(--text-dim); margin-bottom: .9rem; }
+  .calc-card .slider-label { display: block; font-size: .78rem; color: var(--text-dim); margin-bottom: .3rem; }
+  .calc-card .slider-wrap { margin-bottom: .9rem; }
+  .calc-card .result { font-size: .84rem; }
+  .calc-card .result strong { font-size: 1.05rem; color: var(--accent); }
+
+  .checklist { list-style: none; margin: 0; padding: 0; }
+  .checklist li { font-size: .85rem; padding: .25rem 0 .25rem 1.1rem; position: relative; }
+  .checklist li::before { content: "▪"; position: absolute; left: 0; color: var(--accent); }
+
+  .edit-panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; margin-top: 1rem; }
+  .edit-field { margin-bottom: .9rem; }
+  .edit-field label { display: block; font-size: .78rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: .02em; margin-bottom: .3rem; }
+  .edit-row { display: flex; gap: .6rem; flex-wrap: wrap; }
+  .edit-row .edit-field { flex: 1; min-width: 140px; }
+  .edit-actions { display: flex; gap: .6rem; margin-top: 1rem; }
 </style>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js">
-  </script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-  
-  
-  
-  
- </head>
- <body>
+</head>
+<body>
 <div id="kb-app-nav" style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;padding:.5rem 1rem;background:#181b21;color:#e5e7eb;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:13px;border-bottom:1px solid #2a2e37;position:relative;z-index:99999;box-sizing:border-box;">
   <a href="https://kareembullard.github.io/" style="color:#e5e7eb;text-decoration:none;font-weight:600;white-space:nowrap;">🏠 Home</a>
   <div style="position:relative;">
@@ -1264,6 +119,11 @@ main {
 </div>
 <script>
 (function () {
+  if (window.self !== window.top) {
+    var framedBar = document.getElementById("kb-app-nav");
+    if (framedBar) framedBar.style.display = "none";
+    return;
+  }
   var KB_APPS = [
     { group: "Personal Systems Suite", name: "Systems Catalog Explorer", repo: "systems-catalog-explorer-web" },
     { group: "Personal Systems Suite", name: "Tool Inventory Browser", repo: "tool-inventory-browser-web" },
@@ -1327,819 +187,954 @@ main {
 })();
 </script>
 
-  <div class="min-h-screen from-gray-900 via-gray-900 to-indigo-900/50">
-   <div class="section-content mx-auto p-4 sm:p-6 lg:p-8">
-    <header class="mb-8">
-     <h1 class="sm:text-5xl font-extrabold tracking-tight from-indigo-400 to-pink-500">
-      Sacrifice Metrics Dashboard
-     </h1>
-     <p class="mt-2">
-      Quantifying the impact of life choices.
-     </p>
-    </header>
-    <nav class="flex mb-8 p-2 backdrop-blur-sm nav-bar">
-     <div class="flex space-x-2 nav-content">
-      <button class="tab-button" data-tab="dashboard">
-       Dashboard
-      </button>
-      <button class="tab-button" data-tab="impact-table">
-       Impact Table
-      </button>
-      <button class="tab-button" data-tab="formulas">
-       Formulas
-      </button>
-      <button class="tab-button" data-tab="tracker">
-       Tracker
-      </button>
-     </div>
-    </nav>
-    <main>
-     <!-- Dashboard Tab -->
-     <div class="tab-content" id="dashboard">
-      <div class="space-y-6">
-       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="card">
-         <h2 class="font-bold mb-4">
-          Total Annual Gains
-         </h2>
-         <div class="space-y-4">
-          <div class="flex items-center">
-           <span>
-            Time Freed:
-           </span>
-           <span class="font-bold" id="total-time">
-           </span>
-          </div>
-          <div class="flex items-center">
-           <span>
-            Net Financial Impact:
-           </span>
-           <span class="font-bold" id="total-financial">
-           </span>
-          </div>
-          <div class="flex items-center">
-           <span>
-            Productivity Gain:
-           </span>
-           <span class="font-bold" id="total-productivity">
-           </span>
-          </div>
-          <div class="flex items-center">
-           <span>
-            Health Improvement:
-           </span>
-           <span class="font-bold" id="total-health">
-           </span>
-          </div>
-          <div class="flex items-center">
-           <span>
-            Mood Net Change:
-           </span>
-           <span class="font-bold" id="total-mood">
-           </span>
-          </div>
-         </div>
-        </div>
-        <div class="card">
-         <h2 class="font-bold mb-4">
-          ROI by Category
-         </h2>
-         <div>
-          <table class="w-full">
-           <thead>
-            <tr>
-             <th class="p-2">
-              Category
-             </th>
-             <th class="p-2">
-              Investment
-             </th>
-             <th class="p-2">
-              Annual Return
-             </th>
-             <th class="p-2">
-              5-Year ROI
-             </th>
-            </tr>
-           </thead>
-           <tbody id="roi-table-body">
-           </tbody>
-          </table>
-         </div>
-        </div>
-       </div>
-       <div class="card w-full chart-container">
-        <h2 class="font-bold mb-4">
-         Metrics Progression Over 24 Months
-        </h2>
-        <canvas id="progressionChart">
-        </canvas>
-       </div>
-      </div>
-     </div>
-     <!-- Impact Table Tab -->
-     <div class="tab-content hidden" id="impact-table">
-      <div class="card w-full">
-       <h2 class="font-bold mb-4">
-        Enhanced Sacrifice Impact
-       </h2>
-       <div class="flex mb-4">
-        <div class="relative">
-         <select class="form-control py-2 pl-3 pr-10 focus:outline-none focus:ring-2 focus:ring-indigo-500" id="category-filter">
-          <option value="All">
-           All
-          </option>
-          <option value="Health">
-           Health
-          </option>
-          <option value="Time">
-           Time
-          </option>
-          <option value="Business">
-           Business
-          </option>
-          <option value="Financial">
-           Financial
-          </option>
-         </select>
-         <svg class="chevron-down" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
-          <polyline points="6 9 12 15 18 9">
-          </polyline>
-         </svg>
-        </div>
-       </div>
-       <div>
-        <table class="w-full">
-         <thead>
-          <tr>
-           <th class="p-3 cursor-pointer" data-sort="sacrifice">
-            Sacrifice
-            <span class="sort-icon">
-             ⇅
-            </span>
-           </th>
-           <th class="p-3 cursor-pointer" data-sort="category">
-            Category
-            <span class="sort-icon">
-             ⇅
-            </span>
-           </th>
-           <th class="p-3 cursor-pointer" data-sort="hoursSaved">
-            Hrs Saved/Wk
-            <span class="sort-icon">
-             ⇅
-            </span>
-           </th>
-           <th class="p-3 cursor-pointer" data-sort="financialImpact">
-            Annual Financial Impact
-            <span class="sort-icon">
-             ⇅
-            </span>
-           </th>
-           <th class="p-3 cursor-pointer" data-sort="productivityScore">
-            Prod. Score
-            <span class="sort-icon">
-             ⇅
-            </span>
-           </th>
-           <th class="p-3 cursor-pointer" data-sort="healthScore">
-            Health Score
-            <span class="sort-icon">
-             ⇅
-            </span>
-           </th>
-           <th class="p-3 cursor-pointer" data-sort="moodScore">
-            Mood Score
-            <span class="sort-icon">
-             ⇅
-            </span>
-           </th>
-           <th class="p-3 cursor-pointer" data-sort="initialCost">
-            Initial Cost
-            <span class="sort-icon">
-             ⇅
-            </span>
-           </th>
-           <th class="p-3 cursor-pointer" data-sort="roiTimeline">
-            ROI (Months)
-            <span class="sort-icon">
-             ⇅
-            </span>
-           </th>
-          </tr>
-         </thead>
-         <tbody id="sacrifice-table-body">
-         </tbody>
-        </table>
-       </div>
-      </div>
-     </div>
-     <!-- Formulas Tab -->
-     <div class="tab-content hidden" id="formulas">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-       <div class="card">
-        <h3 class="font-bold mb-2">
-         Time Value Calculation
-        </h3>
-        <p class="mb-4">
-         Annual Time Value = (Hrs Saved/Wk × 52) × Hourly Rate
-        </p>
-        <div class="mb-4">
-         <label class="block mb-2">
-          Your Hourly Rate:
-          <span id="hourly-rate-display">
-           $50
-          </span>
-         </label>
-         <input class="slider" id="hourly-rate" max="200" min="10" step="5" type="range" value="50"/>
-        </div>
-        <p>
-         Example: (65 × 52) ×
-         <span id="hourly-rate-calc">
-          $50
-         </span>
-         =
-         <span class="font-bold" id="time-value-result">
-          $169,000
-         </span>
-        </p>
-       </div>
-       <div class="card">
-        <h3 class="font-bold mb-2">
-         Compound Health Benefits
-        </h3>
-        <p class="mb-4">
-         Health ROI = (Health Score Gain × Life Extension Years × Quality of Life Multiplier)
-        </p>
-        <div class="mb-4">
-         <label class="block mb-2">
-          Life Extension:
-          <span id="life-extension-display">
-           5
-          </span>
-          years
-         </label>
-         <input class="slider" id="life-extension" max="15" min="1" type="range" value="5"/>
-        </div>
-        <div class="mb-4">
-         <label class="block mb-2">
-          QoL Multiplier:
-          <span id="qol-multiplier-display">
-           $100,000
-          </span>
-         </label>
-         <input class="slider" id="qol-multiplier" max="250000" min="25000" step="25000" type="range" value="100000"/>
-        </div>
-        <p>
-         Example: 35 ×
-         <span id="life-extension-calc">
-          5
-         </span>
-         ×
-         <span id="qol-multiplier-calc">
-          $100,000
-         </span>
-         =
-         <span class="font-bold" id="health-roi-result">
-          $17,500,000
-         </span>
-        </p>
-       </div>
-       <div class="card">
-        <h3 class="font-bold mb-2">
-         Productivity Multiplier
-        </h3>
-        <p class="mb-4">
-         Enhanced Output = Base Productivity × (1 + Prod. Gain/100)
-        </p>
-        <div class="mb-4">
-         <label class="block mb-2">
-          Base Productivity Units:
-          <span id="base-prod-display">
-           100
-          </span>
-         </label>
-         <input class="slider" id="base-prod" max="500" min="50" step="10" type="range" value="100"/>
-        </div>
-        <p>
-         Example:
-         <span id="base-prod-calc">
-          100
-         </span>
-         × (1 + 30/100) =
-         <span class="font-bold" id="productivity-result">
-          130
-         </span>
-         units
-        </p>
-       </div>
-      </div>
-     </div>
-     <!-- Tracker Tab -->
-     <div class="tab-content hidden" id="tracker">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-       <div class="card">
-        <h3 class="font-bold mb-4">
-         Daily Metrics to Track
-        </h3>
-        <ul class="list-disc list-inside space-y-2">
-         <li>
-          Hours saved from each sacrifice
-         </li>
-         <li>
-          Money saved/invested
-         </li>
-         <li>
-          Productivity rating (1-10)
-         </li>
-         <li>
-          Health feeling (1-10)
-         </li>
-         <li>
-          Mood score (1-10)
-         </li>
-         <li>
-          Tasks completed
-         </li>
-        </ul>
-       </div>
-       <div class="card">
-        <h3 class="font-bold mb-4">
-         Weekly Calculations
-        </h3>
-        <ul class="list-disc list-inside space-y-2">
-         <li>
-          Total hours reclaimed
-         </li>
-         <li>
-          Net financial position
-         </li>
-         <li>
-          Average scores across all metrics
-         </li>
-         <li>
-          Progress toward ROI break-even points
-         </li>
-        </ul>
-       </div>
-       <div class="card">
-        <h3 class="font-bold mb-4">
-         Monthly Analysis
-        </h3>
-        <ul class="list-disc list-inside space-y-2">
-         <li>
-          Trend analysis of all metrics
-         </li>
-         <li>
-          Adjustment recommendations
-         </li>
-         <li>
-          Sacrifice effectiveness ranking
-         </li>
-         <li>
-          Goal alignment assessment
-         </li>
-        </ul>
-       </div>
-      </div>
-     </div>
-    </main>
-   </div>
-  </div>
-  <script>
-// Data from the application
-const sacrificeData = [
-    { id: 1, sacrifice: 'Quit smoking', category: 'Health', hoursSaved: 7, financialImpact: 2400, monthlyTimeGain: 30, productivityScore: 3, healthScore: 8, moodScore: 4, initialCost: 0, roiTimeline: 1 },
-    { id: 2, sacrifice: 'Cut social media 90%', category: 'Time', hoursSaved: 14, financialImpact: 0, monthlyTimeGain: 60, productivityScore: 4, healthScore: 2, moodScore: 3, initialCost: 0, roiTimeline: 1 },
-    { id: 3, sacrifice: 'Miss social events (50%)', category: 'Time', hoursSaved: 8, financialImpact: 480, monthlyTimeGain: 32, productivityScore: 2, healthScore: 1, moodScore: -1, initialCost: 0, roiTimeline: 2 },
-    { id: 4, sacrifice: 'Invest in business education', category: 'Business', hoursSaved: 0, financialImpact: -10000, monthlyTimeGain: 0, productivityScore: 6, healthScore: 1, moodScore: 5, initialCost: 10000, roiTimeline: 18 },
-    { id: 5, sacrifice: 'Cut draining relationships', category: 'Health', hoursSaved: 5, financialImpact: 0, monthlyTimeGain: 20, productivityScore: 3, healthScore: 3, moodScore: 6, initialCost: 0, roiTimeline: 1 },
-    { id: 6, sacrifice: 'Eliminate late-night entertainment', category: 'Time', hoursSaved: 10, financialImpact: 0, monthlyTimeGain: 43, productivityScore: 4, healthScore: 4, moodScore: 2, initialCost: 0, roiTimeline: 1 },
-    { id: 7, sacrifice: 'Delegate/rehome pet', category: 'Time', hoursSaved: 14, financialImpact: 1800, monthlyTimeGain: 60, productivityScore: 5, healthScore: 7, moodScore: -2, initialCost: 0, roiTimeline: 1 },
-    { id: 8, sacrifice: 'Quit drinking alcohol', category: 'Health', hoursSaved: 3, financialImpact: 1200, monthlyTimeGain: 13, productivityScore: 2, healthScore: 6, moodScore: 1, initialCost: 0, roiTimeline: 1 },
-    { id: 9, sacrifice: 'Cancel unused subscriptions', category: 'Financial', hoursSaved: 0, financialImpact: 600, monthlyTimeGain: 0, productivityScore: 0, healthScore: 0, moodScore: 1, initialCost: 0, roiTimeline: 0 },
-    { id: 10, sacrifice: 'Meal prep vs dining out', category: 'Health', hoursSaved: 4, financialImpact: 3600, monthlyTimeGain: 17, productivityScore: 1, healthScore: 3, moodScore: 0, initialCost: 200, roiTimeline: 1 }
+<div class="wrap">
+  <h1>⚖️ Sacrifice Metrics</h1>
+  <p class="sub">Quantifying the impact of life choices — opportunity cost, time reclaimed, and trade-off visualization.</p>
+  <div class="privacy-note">This is a portfolio demo. All data (sacrifices, ROI categories, progression snapshots) is fictional sample data, seeded on first load. Everything is editable — add, edit, and delete entries, filter and sort them, and tune the formula assumptions. Edits save to <em>your</em> browser only (<code>localStorage</code>); nothing is ever sent to a server. Use Reset to restore the original demo data.</div>
+
+  <div class="edit-toolbar" id="edit-toolbar"></div>
+
+  <nav class="top" id="top-nav">
+    <a data-route="overview">Overview</a>
+    <a data-route="sacrifices">Sacrifices</a>
+    <a data-route="roi">ROI</a>
+    <a data-route="progression">Progression</a>
+    <a data-route="formulas">Formulas</a>
+    <a data-route="tracker">Tracker</a>
+  </nav>
+
+  <div id="app"></div>
+
+  <footer>
+    Part of <a href="https://kareembullard.github.io/">Kareem Bullard's app portfolio</a>. Source: <a href="https://github.com/kareembullard/sacrifice-metrics" target="_blank" rel="noopener">sacrifice-metrics</a>.
+  </footer>
+</div>
+
+<script>
+const STORAGE_KEY = "sacrifice-metrics:data";
+const CATEGORIES = ["Health", "Time", "Business", "Financial"];
+const SORT_KEYS = [
+  ["sacrifice", "Name"],
+  ["category", "Category"],
+  ["hoursSaved", "Hrs/Wk"],
+  ["financialImpact", "Financial"],
+  ["productivityScore", "Productivity"],
+  ["healthScore", "Health"],
+  ["moodScore", "Mood"],
+  ["initialCost", "Initial Cost"],
+  ["roiTimeline", "ROI Months"]
 ];
 
-const roiCategoryData = [
-    { category: 'Health sacrifices', investment: 200, annualReturn: 5400, breakEven: 1, roi5Year: 2600 },
-    { category: 'Time optimization', investment: 0, annualReturn: 0, breakEven: 0, roi5Year: '∞' },
-    { category: 'Education/Business', investment: 10000, annualReturn: -10000, breakEven: 18, roi5Year: 150 },
-    { category: 'Habit elimination', investment: 0, annualReturn: 4200, breakEven: 1, roi5Year: '∞' }
-];
-
-const monthlyProgressionData = [
+const SEED = {
+  sacrifices: [
+    { id: 1, sacrifice: "Quit smoking", category: "Health", hoursSaved: 7, financialImpact: 2400, monthlyTimeGain: 30, productivityScore: 3, healthScore: 8, moodScore: 4, initialCost: 0, roiTimeline: 1 },
+    { id: 2, sacrifice: "Cut social media 90%", category: "Time", hoursSaved: 14, financialImpact: 0, monthlyTimeGain: 60, productivityScore: 4, healthScore: 2, moodScore: 3, initialCost: 0, roiTimeline: 1 },
+    { id: 3, sacrifice: "Miss social events (50%)", category: "Time", hoursSaved: 8, financialImpact: 480, monthlyTimeGain: 32, productivityScore: 2, healthScore: 1, moodScore: -1, initialCost: 0, roiTimeline: 2 },
+    { id: 4, sacrifice: "Invest in business education", category: "Business", hoursSaved: 0, financialImpact: -10000, monthlyTimeGain: 0, productivityScore: 6, healthScore: 1, moodScore: 5, initialCost: 10000, roiTimeline: 18 },
+    { id: 5, sacrifice: "Cut draining relationships", category: "Health", hoursSaved: 5, financialImpact: 0, monthlyTimeGain: 20, productivityScore: 3, healthScore: 3, moodScore: 6, initialCost: 0, roiTimeline: 1 },
+    { id: 6, sacrifice: "Eliminate late-night entertainment", category: "Time", hoursSaved: 10, financialImpact: 0, monthlyTimeGain: 43, productivityScore: 4, healthScore: 4, moodScore: 2, initialCost: 0, roiTimeline: 1 },
+    { id: 7, sacrifice: "Delegate/rehome pet", category: "Time", hoursSaved: 14, financialImpact: 1800, monthlyTimeGain: 60, productivityScore: 5, healthScore: 7, moodScore: -2, initialCost: 0, roiTimeline: 1 },
+    { id: 8, sacrifice: "Quit drinking alcohol", category: "Health", hoursSaved: 3, financialImpact: 1200, monthlyTimeGain: 13, productivityScore: 2, healthScore: 6, moodScore: 1, initialCost: 0, roiTimeline: 1 },
+    { id: 9, sacrifice: "Cancel unused subscriptions", category: "Financial", hoursSaved: 0, financialImpact: 600, monthlyTimeGain: 0, productivityScore: 0, healthScore: 0, moodScore: 1, initialCost: 0, roiTimeline: 0 },
+    { id: 10, sacrifice: "Meal prep vs dining out", category: "Health", hoursSaved: 4, financialImpact: 3600, monthlyTimeGain: 17, productivityScore: 1, healthScore: 3, moodScore: 0, initialCost: 200, roiTimeline: 1 }
+  ],
+  roiCategories: [
+    { category: "Health sacrifices", investment: 200, annualReturn: 5400, breakEven: 1, roi5Year: 2600 },
+    { category: "Time optimization", investment: 0, annualReturn: 0, breakEven: 0, roi5Year: "∞" },
+    { category: "Education/Business", investment: 10000, annualReturn: -10000, breakEven: 18, roi5Year: 150 },
+    { category: "Habit elimination", investment: 0, annualReturn: 4200, breakEven: 1, roi5Year: "∞" }
+  ],
+  progression: [
     { month: 1, hours: 280, financial: -8520, productivity: 25, health: 30, mood: 15 },
     { month: 3, hours: 840, financial: -7920, productivity: 28, health: 33, mood: 17 },
     { month: 6, hours: 1680, financial: -6720, productivity: 30, health: 35, mood: 19 },
     { month: 12, hours: 3380, financial: -2720, productivity: 30, health: 35, mood: 19 },
     { month: 18, hours: 5070, financial: 2280, productivity: 30, health: 35, mood: 19 },
     { month: 24, hours: 6760, financial: 7280, productivity: 30, health: 35, mood: 19 }
+  ],
+  tracker: {
+    daily: [
+      "Hours saved from each sacrifice",
+      "Money saved/invested",
+      "Productivity rating (1-10)",
+      "Health feeling (1-10)",
+      "Mood score (1-10)",
+      "Tasks completed"
+    ],
+    weekly: [
+      "Total hours reclaimed",
+      "Net financial position",
+      "Average scores across all metrics",
+      "Progress toward ROI break-even points"
+    ],
+    monthly: [
+      "Trend analysis of all metrics",
+      "Adjustment recommendations",
+      "Sacrifice effectiveness ranking",
+      "Goal alignment assessment"
+    ]
+  },
+  assumptions: { hourlyRate: 50, lifeExtension: 5, qolMultiplier: 100000, baseProd: 100 }
+};
+
+// ---------- formatting helpers (ported) ----------
+const formatCurrency = (value) =>
+  new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(value || 0);
+const formatNumber = (value) => new Intl.NumberFormat("en-US").format(value || 0);
+const signed = (n) => (n > 0 ? "+" + formatNumber(n) : formatNumber(n));
+
+// ---------- state ----------
+function structuredCloneish(o) { return JSON.parse(JSON.stringify(o)); }
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return structuredCloneish(SEED);
+    const parsed = JSON.parse(raw);
+    if (!parsed.sacrifices || !parsed.roiCategories || !parsed.progression) return structuredCloneish(SEED);
+    if (!parsed.tracker) parsed.tracker = structuredCloneish(SEED.tracker);
+    if (!parsed.assumptions) parsed.assumptions = structuredCloneish(SEED.assumptions);
+    return parsed;
+  } catch (e) { return structuredCloneish(SEED); }
+}
+function saveState() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {} }
+function resetState() { state = structuredCloneish(SEED); saveState(); render(); }
+
+let state = loadState();
+
+function nextSacrificeId() {
+  return state.sacrifices.reduce((m, s) => Math.max(m, Number(s.id) || 0), 0) + 1;
+}
+function findSacrifice(id) { return state.sacrifices.find(s => String(s.id) === String(id)); }
+
+// Aggregate totals are recomputed live from the sacrifice entries so edits stay consistent.
+function totals() {
+  const sum = (k) => state.sacrifices.reduce((a, s) => a + (Number(s[k]) || 0), 0);
+  return {
+    time: sum("hoursSaved"),
+    monthlyTimeGain: sum("monthlyTimeGain"),
+    financial: sum("financialImpact"),
+    productivity: sum("productivityScore"),
+    health: sum("healthScore"),
+    mood: sum("moodScore"),
+    initialCost: sum("initialCost")
+  };
+}
+
+// ---------- shared DOM helpers ----------
+const app = document.getElementById("app");
+const topNav = document.getElementById("top-nav");
+
+function el(tag, cls, text) {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text !== undefined && text !== null) n.textContent = String(text);
+  return n;
+}
+function heading(text, count) {
+  const h = el("h2", null, text);
+  if (count !== undefined) {
+    const c = el("span", "count", " (" + count + ")");
+    h.appendChild(c);
+  }
+  return h;
+}
+function emptyMsg(text) { return el("div", "empty", text); }
+function tagEl(text, cls) { return el("span", "tag " + (cls || ""), text); }
+function categoryClass(category) {
+  switch (category) {
+    case "Health": return "cat-health";
+    case "Time": return "cat-time";
+    case "Business": return "cat-business";
+    case "Financial": return "cat-financial";
+    default: return "";
+  }
+}
+
+// Bars replace every Chart.js chart. Negative values render at |value| width in --bad
+// and keep their sign in the label, so layout never breaks on a negative width.
+function barRow(label, val, max, valText, opts) {
+  opts = opts || {};
+  const row = el("div", "bar-row" + (opts.wide ? " wide" : ""));
+  row.appendChild(el("span", "bar-label", label));
+  const track = el("span", "bar-track");
+  const fill = el("span", "bar-fill");
+  const num = Number(val) || 0;
+  const scale = Math.abs(Number(max)) || 1;
+  let pct = Math.round((Math.abs(num) / scale) * 100);
+  if (pct > 100) pct = 100;
+  if (pct < 0) pct = 0;
+  if (opts.infinite) { pct = 100; fill.classList.add("inf"); }
+  else if (opts.signed) fill.classList.add(num < 0 ? "neg" : "pos");
+  else if (num < 0) fill.classList.add("neg");
+  fill.style.width = pct + "%";
+  track.appendChild(fill);
+  row.appendChild(track);
+  row.appendChild(el("span", "bar-val", valText));
+  return row;
+}
+
+function pillGroup(label, values, stateSet, onChange) {
+  const group = el("div", "filter-group");
+  group.appendChild(el("span", "fg-label", label));
+  const scroll = el("div", "pill-scroll");
+  values.forEach(v => {
+    const pill = el("button", "pill" + (stateSet.has(v) ? " active" : ""), v);
+    pill.type = "button";
+    pill.dataset.value = v;
+    pill.addEventListener("click", () => {
+      if (stateSet.has(v)) stateSet.delete(v); else stateSet.add(v);
+      pill.classList.toggle("active");
+      onChange();
+    });
+    scroll.appendChild(pill);
+  });
+  group.appendChild(scroll);
+  return group;
+}
+
+function radioPillGroup(label, pairs, getValue, setValue, onChange) {
+  const group = el("div", "filter-group");
+  group.appendChild(el("span", "fg-label", label));
+  const scroll = el("div", "pill-scroll");
+  pairs.forEach(([value, text]) => {
+    const pill = el("button", "pill" + (getValue() === value ? " active" : ""), text);
+    pill.type = "button";
+    pill.dataset.value = value;
+    pill.addEventListener("click", () => {
+      setValue(value);
+      [...scroll.children].forEach(c => c.classList.toggle("active", c.dataset.value === value));
+      onChange();
+    });
+    scroll.appendChild(pill);
+  });
+  group.appendChild(scroll);
+  return group;
+}
+
+function field(label, input) {
+  const f = el("div", "edit-field");
+  f.appendChild(el("label", null, label));
+  f.appendChild(input);
+  return f;
+}
+function numberInput(value, step) {
+  const i = document.createElement("input");
+  i.type = "number";
+  if (step) i.step = step;
+  i.value = value;
+  return i;
+}
+function textInput(value) {
+  const i = document.createElement("input");
+  i.type = "text";
+  i.value = value;
+  return i;
+}
+function selectInput(values, current) {
+  const s = document.createElement("select");
+  values.forEach(v => {
+    const o = document.createElement("option");
+    o.value = v; o.textContent = v;
+    if (v === current) o.selected = true;
+    s.appendChild(o);
+  });
+  s.value = current;
+  return s;
+}
+function num(input, fallback) {
+  const v = parseFloat(input.value);
+  return isNaN(v) ? (fallback || 0) : v;
+}
+
+// ---------- routing ----------
+function goRoute(route) { location.hash = "#/" + route; }
+
+function render() {
+  const route = (location.hash.replace(/^#\/?/, "") || "overview").split("/")[0];
+  [...topNav.children].forEach(a => a.classList.toggle("active", a.dataset.route === route));
+  if (route === "overview") renderOverview();
+  else if (route === "sacrifices") renderSacrifices();
+  else if (route === "roi") renderRoi();
+  else if (route === "progression") renderProgression();
+  else if (route === "formulas") renderFormulas();
+  else if (route === "tracker") renderTracker();
+  else renderOverview();
+  renderEditToolbar();
+}
+
+[...topNav.children].forEach(a => a.addEventListener("click", () => goRoute(a.dataset.route)));
+window.addEventListener("hashchange", render);
+
+// ---------- toolbar ----------
+function renderEditToolbar() {
+  const bar = document.getElementById("edit-toolbar");
+  bar.innerHTML = "";
+  const exportBtn = el("button", "btn", "Export data");
+  exportBtn.addEventListener("click", () => {
+    const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = "sacrifice-metrics-data.json"; a.click();
+    URL.revokeObjectURL(url);
+  });
+  const importBtn = el("button", "btn", "Import data");
+  const fileInput = document.createElement("input");
+  fileInput.type = "file"; fileInput.accept = "application/json"; fileInput.style.display = "none";
+  fileInput.addEventListener("change", () => {
+    const file = fileInput.files[0]; if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const parsed = JSON.parse(reader.result);
+        if (parsed.sacrifices && parsed.roiCategories && parsed.progression) {
+          if (!parsed.tracker) parsed.tracker = structuredCloneish(SEED.tracker);
+          if (!parsed.assumptions) parsed.assumptions = structuredCloneish(SEED.assumptions);
+          state = parsed; saveState(); render();
+        } else alert("That file doesn't look like sacrifice-metrics data.");
+      } catch (e) { alert("Couldn't parse that file."); }
+    };
+    reader.readAsText(file);
+  });
+  importBtn.addEventListener("click", () => fileInput.click());
+  const resetBtn = el("button", "btn danger", "Reset demo data");
+  resetBtn.addEventListener("click", () => { if (confirm("Reset all data back to the original demo seed?")) resetState(); });
+  bar.append(exportBtn, importBtn, fileInput, resetBtn);
+}
+
+// ---------- Overview ----------
+function renderOverview() {
+  app.innerHTML = "";
+  const t = totals();
+
+  const statGrid = el("div", "stat-grid");
+  const cards = [
+    ["Time Freed", formatNumber(t.time * 52) + " hrs/year", 1],
+    ["Net Financial Impact", formatCurrency(t.financial), t.financial >= 0 ? 1 : -1],
+    ["Productivity Gain", signed(t.productivity) + " pts", t.productivity >= 0 ? 1 : -1],
+    ["Health Improvement", signed(t.health) + " pts", t.health >= 0 ? 1 : -1],
+    ["Mood Net Change", signed(t.mood) + " pts", t.mood >= 0 ? 1 : -1],
+    ["Sacrifices Tracked", formatNumber(state.sacrifices.length), 0]
+  ];
+  cards.forEach(([label, value, tone]) => {
+    const card = el("div", "stat-card");
+    const n = el("div", "num" + (tone === 1 ? " pos" : tone === -1 ? " neg" : ""), value);
+    card.appendChild(n);
+    card.appendChild(el("div", "label", label));
+    statGrid.appendChild(card);
+  });
+  app.appendChild(statGrid);
+
+  let noteText = "Totals are recalculated live from the " + state.sacrifices.length +
+    " sacrifice entries — edit any entry and these move with it. Up-front cost committed: " +
+    formatCurrency(t.initialCost) + " · monthly time reclaimed: " + formatNumber(t.monthlyTimeGain) + " hrs.";
+  const m12 = state.progression.find(p => Number(p.month) === 12);
+  if (m12) noteText += " Cumulative net financial position at month 12: " + formatCurrency(m12.financial) + " (see Progression).";
+  app.appendChild(el("div", "sub", noteText));
+
+  // Hours saved per sacrifice
+  const hoursSec = el("div", "section");
+  hoursSec.appendChild(heading("Hours Saved per Week"));
+  app.appendChild(hoursSec);
+  const hoursMax = Math.max.apply(null, state.sacrifices.map(s => Math.abs(s.hoursSaved)).concat([1]));
+  [...state.sacrifices].sort((a, b) => b.hoursSaved - a.hoursSaved).forEach(s => {
+    hoursSec.appendChild(barRow(s.sacrifice, s.hoursSaved, hoursMax, s.hoursSaved + " hrs", { wide: true }));
+  });
+
+  // Financial impact per sacrifice (signed)
+  const finSec = el("div", "section");
+  finSec.appendChild(heading("Annual Financial Impact"));
+  finSec.appendChild(el("p", "note", "Green bars are net gains, red bars are net costs. Bar length shows magnitude; the sign stays in the label."));
+  app.appendChild(finSec);
+  const finMax = Math.max.apply(null, state.sacrifices.map(s => Math.abs(s.financialImpact)).concat([1]));
+  [...state.sacrifices].sort((a, b) => b.financialImpact - a.financialImpact).forEach(s => {
+    finSec.appendChild(barRow(s.sacrifice, s.financialImpact, finMax, formatCurrency(s.financialImpact), { wide: true, signed: true }));
+  });
+
+  // Category rollup
+  const catSec = el("div", "section");
+  catSec.appendChild(heading("Impact by Category"));
+  app.appendChild(catSec);
+  const catRows = CATEGORIES.map(c => {
+    const items = state.sacrifices.filter(s => s.category === c);
+    return { category: c, hours: items.reduce((a, s) => a + s.hoursSaved, 0), count: items.length };
+  });
+  const catMax = Math.max.apply(null, catRows.map(r => r.hours).concat([1]));
+  catRows.forEach(r => {
+    catSec.appendChild(barRow(r.category, r.hours, catMax, r.hours + " hrs (" + r.count + ")"));
+  });
+}
+
+// ---------- Sacrifices ----------
+const sacrificeFilters = { category: new Set(), query: "", sortKey: "sacrifice", sortDir: "ascending" };
+
+function renderSacrifices() {
+  app.innerHTML = "";
+  app.appendChild(heading("Sacrifices", state.sacrifices.length));
+
+  const search = document.createElement("input");
+  search.type = "search";
+  search.placeholder = "Search sacrifices…";
+  search.value = sacrificeFilters.query;
+  app.appendChild(search);
+
+  const filterBar = el("div", "filter-bar");
+  filterBar.style.marginTop = ".8rem";
+  app.appendChild(filterBar);
+  filterBar.appendChild(pillGroup("Category", CATEGORIES, sacrificeFilters.category, () => draw()));
+  filterBar.appendChild(radioPillGroup("Sort by", SORT_KEYS,
+    () => sacrificeFilters.sortKey,
+    (v) => { sacrificeFilters.sortKey = v; },
+    () => draw()));
+
+  const toolbarRow = el("div", "filter-toolbar-row");
+  const addBtn = el("button", "btn primary", "+ New Sacrifice");
+  addBtn.addEventListener("click", () => openSacrificeForm(null));
+  const dirBtn = el("button", "btn small", "");
+  function dirLabel() { return sacrificeFilters.sortDir === "ascending" ? "Ascending ↑" : "Descending ↓"; }
+  dirBtn.textContent = dirLabel();
+  dirBtn.addEventListener("click", () => {
+    sacrificeFilters.sortDir = sacrificeFilters.sortDir === "ascending" ? "descending" : "ascending";
+    dirBtn.textContent = dirLabel();
+    draw();
+  });
+  toolbarRow.append(addBtn, dirBtn);
+  app.appendChild(toolbarRow);
+
+  const ul = el("ul", "entities");
+  app.appendChild(ul);
+  const empty = emptyMsg("No sacrifices match.");
+  empty.style.display = "none";
+  app.appendChild(empty);
+
+  const chartSec = el("div", "section");
+  chartSec.appendChild(heading("Score Breakdown"));
+  chartSec.appendChild(el("p", "note", "Productivity, health, and mood scores for the entries currently shown. Negative mood scores render in red."));
+  const chartBody = el("div");
+  chartSec.appendChild(chartBody);
+  app.appendChild(chartSec);
+
+  function visible() {
+    const q = search.value.trim().toLowerCase();
+    sacrificeFilters.query = search.value;
+    let list = state.sacrifices
+      .filter(s => !q || s.sacrifice.toLowerCase().includes(q) || s.category.toLowerCase().includes(q))
+      .filter(s => !sacrificeFilters.category.size || sacrificeFilters.category.has(s.category));
+    const key = sacrificeFilters.sortKey;
+    const dir = sacrificeFilters.sortDir === "ascending" ? 1 : -1;
+    list = list.slice().sort((a, b) => {
+      const av = a[key], bv = b[key];
+      if (av < bv) return -1 * dir;
+      if (av > bv) return 1 * dir;
+      return 0;
+    });
+    return list;
+  }
+
+  function draw() {
+    const list = visible();
+    ul.innerHTML = "";
+    empty.style.display = list.length ? "none" : "block";
+    list.forEach(s => ul.appendChild(sacrificeRow(s)));
+
+    chartBody.innerHTML = "";
+    if (!list.length) {
+      chartBody.appendChild(emptyMsg("Nothing to chart."));
+      return;
+    }
+    const scoreMax = Math.max.apply(null, list.map(s =>
+      Math.max(Math.abs(s.productivityScore), Math.abs(s.healthScore), Math.abs(s.moodScore))).concat([1]));
+    list.forEach(s => {
+      const block = el("div");
+      block.style.marginBottom = ".7rem";
+      const title = el("div", "meta", s.sacrifice);
+      title.style.fontWeight = "600";
+      title.style.fontSize = ".82rem";
+      block.appendChild(title);
+      block.appendChild(barRow("Productivity", s.productivityScore, scoreMax, signed(s.productivityScore), { signed: true }));
+      block.appendChild(barRow("Health", s.healthScore, scoreMax, signed(s.healthScore), { signed: true }));
+      block.appendChild(barRow("Mood", s.moodScore, scoreMax, signed(s.moodScore), { signed: true }));
+      chartBody.appendChild(block);
+    });
+  }
+
+  search.addEventListener("input", draw);
+  draw();
+}
+
+function sacrificeRow(s) {
+  const li = el("li", "entity");
+  const left = el("div");
+  left.appendChild(el("div", "main", s.sacrifice));
+  const meta = el("div", "meta",
+    s.hoursSaved + " hrs/wk · " + s.monthlyTimeGain + " hrs/mo · " + formatCurrency(s.financialImpact) +
+    " · P " + signed(s.productivityScore) + " / H " + signed(s.healthScore) + " / M " + signed(s.moodScore) +
+    " · cost " + formatCurrency(s.initialCost) + " · ROI " + s.roiTimeline + " mo");
+  left.appendChild(meta);
+  const tags = el("div");
+  tags.appendChild(tagEl(s.category, categoryClass(s.category)));
+  if (s.financialImpact > 0) tags.appendChild(tagEl("gain " + formatCurrency(s.financialImpact), "impact-gain"));
+  else if (s.financialImpact < 0) tags.appendChild(tagEl("cost " + formatCurrency(Math.abs(s.financialImpact)), "impact-cost"));
+  left.appendChild(tags);
+  li.appendChild(left);
+
+  const actions = el("div", "actions");
+  const editBtn = el("button", "btn small", "Edit");
+  editBtn.addEventListener("click", () => openSacrificeForm(s.id));
+  actions.appendChild(editBtn);
+  li.appendChild(actions);
+  return li;
+}
+
+function openSacrificeForm(id) {
+  const existing = id !== null && id !== undefined ? findSacrifice(id) : null;
+  const draft = existing ? Object.assign({}, existing) : {
+    sacrifice: "", category: "Time", hoursSaved: 0, financialImpact: 0, monthlyTimeGain: 0,
+    productivityScore: 0, healthScore: 0, moodScore: 0, initialCost: 0, roiTimeline: 0
+  };
+  app.innerHTML = "";
+  app.appendChild(el("h2", null, existing ? "Edit Sacrifice" : "New Sacrifice"));
+  const panel = el("div", "edit-panel");
+  app.appendChild(panel);
+
+  const nameInput = textInput(draft.sacrifice);
+  const catSelect = selectInput(CATEGORIES, draft.category);
+  const hoursInput = numberInput(draft.hoursSaved, "0.5");
+  const monthlyInput = numberInput(draft.monthlyTimeGain, "1");
+  const finInput = numberInput(draft.financialImpact, "1");
+  const costInput = numberInput(draft.initialCost, "1");
+  const prodInput = numberInput(draft.productivityScore, "1");
+  const healthInput = numberInput(draft.healthScore, "1");
+  const moodInput = numberInput(draft.moodScore, "1");
+  const roiInput = numberInput(draft.roiTimeline, "1");
+
+  const row1 = el("div", "edit-row");
+  row1.append(field("Sacrifice", nameInput), field("Category", catSelect));
+  const row2 = el("div", "edit-row");
+  row2.append(field("Hours saved / week", hoursInput), field("Monthly time gain (hrs)", monthlyInput));
+  const row3 = el("div", "edit-row");
+  row3.append(field("Annual financial impact ($)", finInput), field("Initial cost ($)", costInput), field("ROI timeline (months)", roiInput));
+  const row4 = el("div", "edit-row");
+  row4.append(field("Productivity score", prodInput), field("Health score", healthInput), field("Mood score", moodInput));
+  panel.append(row1, row2, row3, row4);
+
+  const actions = el("div", "edit-actions");
+  const saveBtn = el("button", "btn primary", "Save");
+  saveBtn.addEventListener("click", () => {
+    const payload = {
+      sacrifice: nameInput.value.trim() || "Untitled sacrifice",
+      category: catSelect.value || "Time",
+      hoursSaved: num(hoursInput, 0),
+      monthlyTimeGain: num(monthlyInput, 0),
+      financialImpact: num(finInput, 0),
+      initialCost: num(costInput, 0),
+      productivityScore: num(prodInput, 0),
+      healthScore: num(healthInput, 0),
+      moodScore: num(moodInput, 0),
+      roiTimeline: num(roiInput, 0)
+    };
+    if (existing) Object.assign(existing, payload);
+    else state.sacrifices.push(Object.assign({ id: nextSacrificeId() }, payload));
+    saveState();
+    goRoute("sacrifices");
+  });
+  const cancelBtn = el("button", "btn", "Cancel");
+  cancelBtn.addEventListener("click", () => goRoute("sacrifices"));
+  actions.append(saveBtn, cancelBtn);
+  if (existing) {
+    const delBtn = el("button", "btn danger", "Delete");
+    delBtn.addEventListener("click", () => {
+      if (!confirm("Delete this sacrifice?")) return;
+      state.sacrifices = state.sacrifices.filter(s => String(s.id) !== String(existing.id));
+      saveState();
+      goRoute("sacrifices");
+    });
+    actions.appendChild(delBtn);
+  }
+  panel.appendChild(actions);
+}
+
+// ---------- ROI ----------
+function roiDisplay(v) { return v === "∞" ? "∞" : formatNumber(v) + "%"; }
+
+function renderRoi() {
+  app.innerHTML = "";
+  app.appendChild(heading("ROI by Category", state.roiCategories.length));
+  app.appendChild(el("p", "note", "Investment, annual return, break-even month, and 5-year ROI for each class of sacrifice. An infinite ROI (∞) means the return required no capital investment."));
+
+  const addBtn = el("button", "btn primary", "+ New ROI Category");
+  addBtn.addEventListener("click", () => openRoiForm(null));
+  app.appendChild(addBtn);
+
+  const ul = el("ul", "entities");
+  ul.style.marginTop = "1rem";
+  app.appendChild(ul);
+  if (!state.roiCategories.length) app.appendChild(emptyMsg("No ROI categories yet."));
+
+  state.roiCategories.forEach((r, i) => {
+    const li = el("li", "entity");
+    const left = el("div");
+    left.appendChild(el("div", "main", r.category));
+    left.appendChild(el("div", "meta",
+      "Investment " + formatCurrency(r.investment) +
+      " · Annual return " + formatCurrency(r.annualReturn) +
+      " · Break-even " + r.breakEven + " mo · 5-year ROI " + roiDisplay(r.roi5Year)));
+    const tags = el("div");
+    if (Number(r.annualReturn) > 0) tags.appendChild(tagEl("positive return", "impact-gain"));
+    else if (Number(r.annualReturn) < 0) tags.appendChild(tagEl("net outflow", "impact-cost"));
+    else tags.appendChild(tagEl("no cash flow"));
+    left.appendChild(tags);
+    li.appendChild(left);
+    const actions = el("div", "actions");
+    const editBtn = el("button", "btn small", "Edit");
+    editBtn.addEventListener("click", () => openRoiForm(i));
+    actions.appendChild(editBtn);
+    li.appendChild(actions);
+    ul.appendChild(li);
+  });
+
+  const retSec = el("div", "section");
+  retSec.appendChild(heading("Annual Return by Category"));
+  app.appendChild(retSec);
+  const retMax = Math.max.apply(null, state.roiCategories.map(r => Math.abs(Number(r.annualReturn) || 0)).concat([1]));
+  state.roiCategories.forEach(r => {
+    retSec.appendChild(barRow(r.category, Number(r.annualReturn) || 0, retMax, formatCurrency(r.annualReturn), { wide: true, signed: true }));
+  });
+
+  const invSec = el("div", "section");
+  invSec.appendChild(heading("Up-front Investment by Category"));
+  app.appendChild(invSec);
+  const invMax = Math.max.apply(null, state.roiCategories.map(r => Math.abs(Number(r.investment) || 0)).concat([1]));
+  state.roiCategories.forEach(r => {
+    invSec.appendChild(barRow(r.category, Number(r.investment) || 0, invMax, formatCurrency(r.investment), { wide: true }));
+  });
+
+  const roiSec = el("div", "section");
+  roiSec.appendChild(heading("5-Year ROI"));
+  roiSec.appendChild(el("p", "note", "Categories with no capital investment have an unbounded ROI and are shown as a full amber bar marked ∞."));
+  app.appendChild(roiSec);
+  const finite = state.roiCategories.filter(r => r.roi5Year !== "∞").map(r => Math.abs(Number(r.roi5Year) || 0));
+  const roiMax = Math.max.apply(null, finite.concat([1]));
+  state.roiCategories.forEach(r => {
+    const isInf = r.roi5Year === "∞";
+    roiSec.appendChild(barRow(r.category, isInf ? roiMax : Number(r.roi5Year) || 0, roiMax, roiDisplay(r.roi5Year), { wide: true, infinite: isInf }));
+  });
+
+  const beSec = el("div", "section");
+  beSec.appendChild(heading("Break-even (months)"));
+  app.appendChild(beSec);
+  const beMax = Math.max.apply(null, state.roiCategories.map(r => Number(r.breakEven) || 0).concat([1]));
+  state.roiCategories.forEach(r => {
+    beSec.appendChild(barRow(r.category, Number(r.breakEven) || 0, beMax, (Number(r.breakEven) || 0) + " mo", { wide: true }));
+  });
+}
+
+function openRoiForm(index) {
+  const existing = index !== null && index !== undefined ? state.roiCategories[index] : null;
+  const draft = existing ? Object.assign({}, existing) : { category: "", investment: 0, annualReturn: 0, breakEven: 0, roi5Year: 0 };
+  app.innerHTML = "";
+  app.appendChild(el("h2", null, existing ? "Edit ROI Category" : "New ROI Category"));
+  const panel = el("div", "edit-panel");
+  app.appendChild(panel);
+
+  const nameInput = textInput(draft.category);
+  const invInput = numberInput(draft.investment, "1");
+  const retInput = numberInput(draft.annualReturn, "1");
+  const beInput = numberInput(draft.breakEven, "1");
+  const roiInput = textInput(draft.roi5Year);
+
+  const row1 = el("div", "edit-row");
+  row1.append(field("Category", nameInput));
+  const row2 = el("div", "edit-row");
+  row2.append(field("Investment ($)", invInput), field("Annual return ($)", retInput));
+  const row3 = el("div", "edit-row");
+  row3.append(field("Break-even (months)", beInput), field("5-year ROI (% or ∞)", roiInput));
+  panel.append(row1, row2, row3);
+
+  const actions = el("div", "edit-actions");
+  const saveBtn = el("button", "btn primary", "Save");
+  saveBtn.addEventListener("click", () => {
+    const raw = String(roiInput.value).trim();
+    let roi5Year;
+    if (raw === "" || raw === "∞" || raw.toLowerCase() === "inf" || raw.toLowerCase() === "infinity") roi5Year = "∞";
+    else { const parsed = parseFloat(raw); roi5Year = isNaN(parsed) ? "∞" : parsed; }
+    const payload = {
+      category: nameInput.value.trim() || "Untitled category",
+      investment: num(invInput, 0),
+      annualReturn: num(retInput, 0),
+      breakEven: num(beInput, 0),
+      roi5Year: roi5Year
+    };
+    if (existing) Object.assign(existing, payload);
+    else state.roiCategories.push(payload);
+    saveState();
+    goRoute("roi");
+  });
+  const cancelBtn = el("button", "btn", "Cancel");
+  cancelBtn.addEventListener("click", () => goRoute("roi"));
+  actions.append(saveBtn, cancelBtn);
+  if (existing) {
+    const delBtn = el("button", "btn danger", "Delete");
+    delBtn.addEventListener("click", () => {
+      if (!confirm("Delete this ROI category?")) return;
+      state.roiCategories.splice(index, 1);
+      saveState();
+      goRoute("roi");
+    });
+    actions.appendChild(delBtn);
+  }
+  panel.appendChild(actions);
+}
+
+// ---------- Progression ----------
+const PROGRESSION_SERIES = [
+  ["hours", "Cumulative Hours Saved", "number"],
+  ["financial", "Net Financial Gain", "currency"],
+  ["productivity", "Productivity Score", "number"],
+  ["health", "Health Score", "number"],
+  ["mood", "Mood Score", "number"]
 ];
 
-const totalGains = {
-    time: 65,
-    financial: -2720,
-    productivity: 30,
-    health: 35,
-    mood: 19
-};
+function renderProgression() {
+  app.innerHTML = "";
+  app.appendChild(heading("Metrics Progression", state.progression.length));
+  app.appendChild(el("p", "note", "Snapshots of the cumulative effect over 24 months. Each series below replaces one line of the original chart."));
 
-// Helper functions
-const formatCurrency = (value) => {
-    return new Intl.NumberFormat('en-US', { 
-        style: 'currency', 
-        currency: 'USD', 
-        minimumFractionDigits: 0 
-    }).format(value);
-};
-
-const formatNumber = (value) => {
-    return new Intl.NumberFormat('en-US').format(value);
-};
-
-// Global variables
-let currentSortConfig = { key: 'sacrifice', direction: 'ascending' };
-let currentFilter = 'All';
-let progressionChart = null;
-
-// Initialize the application
-document.addEventListener('DOMContentLoaded', function() {
-    initializeTabs();
-    populateDashboard();
-    populateImpactTable();
-    initializeFormulas();
-    initializeChart();
-});
-
-// Tab management
-function initializeTabs() {
-    const tabButtons = document.querySelectorAll('.tab-button');
-    const tabContents = document.querySelectorAll('.tab-content');
-    
-    // Set initial active tab
-    tabButtons[0].classList.add('active');
-    
-    tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const targetTab = button.getAttribute('data-tab');
-            
-            // Remove active class from all buttons
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            
-            // Add active class to clicked button
-            button.classList.add('active');
-            
-            // Hide all tab contents
-            tabContents.forEach(content => content.classList.add('hidden'));
-            
-            // Show target tab content
-            const targetContent = document.getElementById(targetTab);
-            if (targetContent) {
-                targetContent.classList.remove('hidden');
-            }
-        });
+  const rows = [...state.progression].sort((a, b) => a.month - b.month);
+  const last = rows[rows.length - 1];
+  if (last) {
+    const statGrid = el("div", "stat-grid");
+    [
+      ["Hours by Month " + last.month, formatNumber(last.hours), 1],
+      ["Net Financial by Month " + last.month, formatCurrency(last.financial), last.financial >= 0 ? 1 : -1],
+      ["Productivity", signed(last.productivity), last.productivity >= 0 ? 1 : -1],
+      ["Health", signed(last.health), last.health >= 0 ? 1 : -1],
+      ["Mood", signed(last.mood), last.mood >= 0 ? 1 : -1]
+    ].forEach(([label, value, tone]) => {
+      const card = el("div", "stat-card");
+      card.appendChild(el("div", "num" + (tone === 1 ? " pos" : tone === -1 ? " neg" : ""), value));
+      card.appendChild(el("div", "label", label));
+      statGrid.appendChild(card);
     });
-}
+    app.appendChild(statGrid);
+  }
 
-// Dashboard population
-function populateDashboard() {
-    // Total gains
-    document.getElementById('total-time').textContent = formatNumber(totalGains.time * 52) + ' hrs/year';
-    
-    const financialElement = document.getElementById('total-financial');
-    financialElement.textContent = formatCurrency(totalGains.financial);
-    financialElement.className = totalGains.financial < 0 ? 'text-2xl font-bold text-red-400' : 'text-2xl font-bold text-green-400';
-    
-    document.getElementById('total-productivity').textContent = '+' + totalGains.productivity + ' points';
-    document.getElementById('total-health').textContent = '+' + totalGains.health + ' points';
-    document.getElementById('total-mood').textContent = '+' + totalGains.mood + ' points';
-    
-    // ROI table
-    const roiTableBody = document.getElementById('roi-table-body');
-    roiTableBody.innerHTML = '';
-    
-    roiCategoryData.forEach(item => {
-        const row = document.createElement('tr');
-        row.className = 'border-b border-gray-800';
-        
-        const returnClass = item.annualReturn < 0 ? 'text-red-400' : 'text-green-400';
-        const roiDisplay = item.roi5Year === '∞' ? '∞' : formatNumber(item.roi5Year) + '%';
-        
-        row.innerHTML = `
-            <td class="p-2 font-medium text-white">${item.category}</td>
-            <td class="p-2 text-right">${formatCurrency(item.investment)}</td>
-            <td class="p-2 text-right ${returnClass}">${formatCurrency(item.annualReturn)}</td>
-            <td class="p-2 text-right font-bold text-indigo-400">${roiDisplay}</td>
-        `;
-        
-        roiTableBody.appendChild(row);
+  const addBtn = el("button", "btn primary", "+ New Snapshot");
+  addBtn.addEventListener("click", () => openProgressionForm(null));
+  app.appendChild(addBtn);
+
+  const ul = el("ul", "entities");
+  ul.style.marginTop = "1rem";
+  app.appendChild(ul);
+  if (!rows.length) app.appendChild(emptyMsg("No progression snapshots yet."));
+  rows.forEach(r => {
+    const idx = state.progression.indexOf(r);
+    const li = el("li", "entity");
+    const left = el("div");
+    left.appendChild(el("div", "main", "Month " + r.month));
+    left.appendChild(el("div", "meta",
+      formatNumber(r.hours) + " hrs · " + formatCurrency(r.financial) +
+      " · P " + signed(r.productivity) + " / H " + signed(r.health) + " / M " + signed(r.mood)));
+    const tags = el("div");
+    tags.appendChild(tagEl(r.financial >= 0 ? "net positive" : "net negative", r.financial >= 0 ? "impact-gain" : "impact-cost"));
+    left.appendChild(tags);
+    li.appendChild(left);
+    const actions = el("div", "actions");
+    const editBtn = el("button", "btn small", "Edit");
+    editBtn.addEventListener("click", () => openProgressionForm(idx));
+    actions.appendChild(editBtn);
+    li.appendChild(actions);
+    ul.appendChild(li);
+  });
+
+  PROGRESSION_SERIES.forEach(([key, label, fmt]) => {
+    const sec = el("div", "section");
+    sec.appendChild(heading(label));
+    app.appendChild(sec);
+    const max = Math.max.apply(null, rows.map(r => Math.abs(Number(r[key]) || 0)).concat([1]));
+    rows.forEach(r => {
+      const v = Number(r[key]) || 0;
+      const text = fmt === "currency" ? formatCurrency(v) : formatNumber(v);
+      sec.appendChild(barRow("Month " + r.month, v, max, text, { signed: true }));
     });
+  });
 }
 
-// Impact table population and management
-function populateImpactTable() {
-    const categoryFilter = document.getElementById('category-filter');
-    const tableBody = document.getElementById('sacrifice-table-body');
-    
-    // Filter change handler
-    categoryFilter.addEventListener('change', (e) => {
-        currentFilter = e.target.value;
-        renderTable();
+function openProgressionForm(index) {
+  const existing = index !== null && index !== undefined ? state.progression[index] : null;
+  const draft = existing ? Object.assign({}, existing) : { month: 0, hours: 0, financial: 0, productivity: 0, health: 0, mood: 0 };
+  app.innerHTML = "";
+  app.appendChild(el("h2", null, existing ? "Edit Snapshot" : "New Snapshot"));
+  const panel = el("div", "edit-panel");
+  app.appendChild(panel);
+
+  const monthInput = numberInput(draft.month, "1");
+  const hoursInput = numberInput(draft.hours, "1");
+  const finInput = numberInput(draft.financial, "1");
+  const prodInput = numberInput(draft.productivity, "1");
+  const healthInput = numberInput(draft.health, "1");
+  const moodInput = numberInput(draft.mood, "1");
+
+  const row1 = el("div", "edit-row");
+  row1.append(field("Month", monthInput), field("Cumulative hours", hoursInput), field("Net financial ($)", finInput));
+  const row2 = el("div", "edit-row");
+  row2.append(field("Productivity", prodInput), field("Health", healthInput), field("Mood", moodInput));
+  panel.append(row1, row2);
+
+  const actions = el("div", "edit-actions");
+  const saveBtn = el("button", "btn primary", "Save");
+  saveBtn.addEventListener("click", () => {
+    const payload = {
+      month: num(monthInput, 0),
+      hours: num(hoursInput, 0),
+      financial: num(finInput, 0),
+      productivity: num(prodInput, 0),
+      health: num(healthInput, 0),
+      mood: num(moodInput, 0)
+    };
+    if (existing) Object.assign(existing, payload);
+    else state.progression.push(payload);
+    saveState();
+    goRoute("progression");
+  });
+  const cancelBtn = el("button", "btn", "Cancel");
+  cancelBtn.addEventListener("click", () => goRoute("progression"));
+  actions.append(saveBtn, cancelBtn);
+  if (existing) {
+    const delBtn = el("button", "btn danger", "Delete");
+    delBtn.addEventListener("click", () => {
+      if (!confirm("Delete this snapshot?")) return;
+      state.progression.splice(index, 1);
+      saveState();
+      goRoute("progression");
     });
-    
-    // Sort handlers
-    const sortableHeaders = document.querySelectorAll('[data-sort]');
-    sortableHeaders.forEach(header => {
-        header.addEventListener('click', () => {
-            const sortKey = header.getAttribute('data-sort');
-            requestSort(sortKey);
-        });
-    });
-    
-    renderTable();
+    actions.appendChild(delBtn);
+  }
+  panel.appendChild(actions);
 }
 
-function requestSort(key) {
-    let direction = 'ascending';
-    if (currentSortConfig.key === key && currentSortConfig.direction === 'ascending') {
-        direction = 'descending';
-    }
-    currentSortConfig = { key, direction };
-    
-    updateSortIcons();
-    renderTable();
+// ---------- Formulas ----------
+function renderFormulas() {
+  app.innerHTML = "";
+  app.appendChild(heading("Formulas"));
+  app.appendChild(el("p", "note", "Live calculators driven by your assumptions. The baseline figures come from the current sacrifice totals, so they update as you edit entries. Assumptions are saved with your data."));
+
+  const t = totals();
+  const a = state.assumptions;
+  const grid = el("div", "card-grid");
+  app.appendChild(grid);
+
+  // 1. Time value
+  const c1 = el("div", "calc-card");
+  c1.appendChild(el("h3", null, "Time Value Calculation"));
+  c1.appendChild(el("div", "formula", "Annual Time Value = (Hrs Saved/Wk × 52) × Hourly Rate"));
+  const w1 = el("div", "slider-wrap");
+  const l1 = el("span", "slider-label", "");
+  const s1 = document.createElement("input");
+  s1.type = "range"; s1.min = "10"; s1.max = "200"; s1.step = "5"; s1.value = a.hourlyRate;
+  s1.id = "hourly-rate";
+  w1.append(l1, s1);
+  c1.appendChild(w1);
+  const r1 = el("p", "result");
+  c1.appendChild(r1);
+  function updateTimeValue() {
+    const rate = parseFloat(s1.value) || 0;
+    state.assumptions.hourlyRate = rate;
+    const timeValue = t.time * 52 * rate;
+    l1.textContent = "Your Hourly Rate: " + formatCurrency(rate);
+    r1.innerHTML = "";
+    r1.appendChild(document.createTextNode("(" + formatNumber(t.time) + " × 52) × " + formatCurrency(rate) + " = "));
+    r1.appendChild(el("strong", null, formatCurrency(timeValue)));
+  }
+  s1.addEventListener("input", () => { updateTimeValue(); saveState(); });
+  updateTimeValue();
+  grid.appendChild(c1);
+
+  // 2. Compound health benefits
+  const c2 = el("div", "calc-card");
+  c2.appendChild(el("h3", null, "Compound Health Benefits"));
+  c2.appendChild(el("div", "formula", "Health ROI = Health Score Gain × Life Extension Years × Quality of Life Multiplier"));
+  const w2a = el("div", "slider-wrap");
+  const l2a = el("span", "slider-label", "");
+  const s2a = document.createElement("input");
+  s2a.type = "range"; s2a.min = "1"; s2a.max = "15"; s2a.step = "1"; s2a.value = a.lifeExtension;
+  s2a.id = "life-extension";
+  w2a.append(l2a, s2a);
+  const w2b = el("div", "slider-wrap");
+  const l2b = el("span", "slider-label", "");
+  const s2b = document.createElement("input");
+  s2b.type = "range"; s2b.min = "25000"; s2b.max = "250000"; s2b.step = "25000"; s2b.value = a.qolMultiplier;
+  s2b.id = "qol-multiplier";
+  w2b.append(l2b, s2b);
+  c2.append(w2a, w2b);
+  const r2 = el("p", "result");
+  c2.appendChild(r2);
+  function updateHealthRoi() {
+    const years = parseFloat(s2a.value) || 0;
+    const qol = parseFloat(s2b.value) || 0;
+    state.assumptions.lifeExtension = years;
+    state.assumptions.qolMultiplier = qol;
+    const healthRoi = t.health * years * qol;
+    l2a.textContent = "Life Extension: " + years + " years";
+    l2b.textContent = "QoL Multiplier: " + formatCurrency(qol);
+    r2.innerHTML = "";
+    r2.appendChild(document.createTextNode(formatNumber(t.health) + " × " + years + " × " + formatCurrency(qol) + " = "));
+    r2.appendChild(el("strong", null, formatCurrency(healthRoi)));
+  }
+  s2a.addEventListener("input", () => { updateHealthRoi(); saveState(); });
+  s2b.addEventListener("input", () => { updateHealthRoi(); saveState(); });
+  updateHealthRoi();
+  grid.appendChild(c2);
+
+  // 3. Productivity multiplier
+  const c3 = el("div", "calc-card");
+  c3.appendChild(el("h3", null, "Productivity Multiplier"));
+  c3.appendChild(el("div", "formula", "Enhanced Output = Base Productivity × (1 + Prod. Gain / 100)"));
+  const w3 = el("div", "slider-wrap");
+  const l3 = el("span", "slider-label", "");
+  const s3 = document.createElement("input");
+  s3.type = "range"; s3.min = "50"; s3.max = "500"; s3.step = "10"; s3.value = a.baseProd;
+  s3.id = "base-prod";
+  w3.append(l3, s3);
+  c3.appendChild(w3);
+  const r3 = el("p", "result");
+  c3.appendChild(r3);
+  function updateProductivityMultiplier() {
+    const base = parseFloat(s3.value) || 0;
+    state.assumptions.baseProd = base;
+    const enhanced = base * (1 + t.productivity / 100);
+    l3.textContent = "Base Productivity Units: " + formatNumber(base);
+    r3.innerHTML = "";
+    r3.appendChild(document.createTextNode(formatNumber(base) + " × (1 + " + formatNumber(t.productivity) + "/100) = "));
+    r3.appendChild(el("strong", null, formatNumber(Math.round(enhanced)) + " units"));
+  }
+  s3.addEventListener("input", () => { updateProductivityMultiplier(); saveState(); });
+  updateProductivityMultiplier();
+  grid.appendChild(c3);
 }
 
-function updateSortIcons() {
-    const sortableHeaders = document.querySelectorAll('[data-sort]');
-    sortableHeaders.forEach(header => {
-        const sortIcon = header.querySelector('.sort-icon');
-        const sortKey = header.getAttribute('data-sort');
-        
-        if (currentSortConfig.key === sortKey) {
-            sortIcon.textContent = currentSortConfig.direction === 'ascending' ? '↑' : '↓';
-            sortIcon.className = 'sort-icon asc';
-        } else {
-            sortIcon.textContent = '⇅';
-            sortIcon.className = 'sort-icon';
-        }
-    });
+// ---------- Tracker ----------
+function renderTracker() {
+  app.innerHTML = "";
+  app.appendChild(heading("Tracker"));
+  app.appendChild(el("p", "note", "The measurement cadence behind these numbers — what to log daily, roll up weekly, and analyse monthly."));
+
+  const grid = el("div", "card-grid");
+  app.appendChild(grid);
+  [
+    ["Daily Metrics to Track", state.tracker.daily],
+    ["Weekly Calculations", state.tracker.weekly],
+    ["Monthly Analysis", state.tracker.monthly]
+  ].forEach(([title, items]) => {
+    const card = el("div", "calc-card");
+    card.appendChild(el("h3", null, title));
+    const ul = el("ul", "checklist");
+    (items || []).forEach(i => ul.appendChild(el("li", null, i)));
+    card.appendChild(ul);
+    grid.appendChild(card);
+  });
 }
 
-function renderTable() {
-    const tableBody = document.getElementById('sacrifice-table-body');
-    
-    // Filter data
-    let filteredData = [...sacrificeData];
-    if (currentFilter !== 'All') {
-        filteredData = filteredData.filter(item => item.category === currentFilter);
-    }
-    
-    // Sort data
-    filteredData.sort((a, b) => {
-        const aVal = a[currentSortConfig.key];
-        const bVal = b[currentSortConfig.key];
-        
-        if (aVal < bVal) {
-            return currentSortConfig.direction === 'ascending' ? -1 : 1;
-        }
-        if (aVal > bVal) {
-            return currentSortConfig.direction === 'ascending' ? 1 : -1;
-        }
-        return 0;
-    });
-    
-    // Clear and populate table
-    tableBody.innerHTML = '';
-    
-    filteredData.forEach(item => {
-        const row = document.createElement('tr');
-        row.className = 'border-b border-gray-800 hover:bg-white/5';
-        
-        const categoryClass = getCategoryClass(item.category);
-        const financialClass = item.financialImpact < 0 ? 'financial-negative' : 'financial-positive';
-        const moodClass = item.moodScore < 0 ? 'mood-negative' : '';
-        
-        row.innerHTML = `
-            <td class="p-3 font-medium text-white">${item.sacrifice}</td>
-            <td class="p-3">
-                <span class="category-badge ${categoryClass}">${item.category}</span>
-            </td>
-            <td class="p-3 text-center">${item.hoursSaved}</td>
-            <td class="p-3 text-right ${financialClass}">${formatCurrency(item.financialImpact)}</td>
-            <td class="p-3 text-center">${item.productivityScore}</td>
-            <td class="p-3 text-center">${item.healthScore}</td>
-            <td class="p-3 text-center ${moodClass}">${item.moodScore}</td>
-            <td class="p-3 text-right">${formatCurrency(item.initialCost)}</td>
-            <td class="p-3 text-center">${item.roiTimeline}</td>
-        `;
-        
-        tableBody.appendChild(row);
-    });
-}
-
-function getCategoryClass(category) {
-    switch(category) {
-        case 'Health': return 'category-health';
-        case 'Time': return 'category-time';
-        case 'Business': return 'category-business';
-        case 'Financial': return 'category-financial';
-        default: return '';
-    }
-}
-
-// Formulas tab initialization
-function initializeFormulas() {
-    const hourlyRateSlider = document.getElementById('hourly-rate');
-    const lifeExtensionSlider = document.getElementById('life-extension');
-    const qolMultiplierSlider = document.getElementById('qol-multiplier');
-    const baseProdSlider = document.getElementById('base-prod');
-    
-    // Initial calculations
-    updateTimeValue();
-    updateHealthRoi();
-    updateProductivityMultiplier();
-    
-    // Event listeners
-    hourlyRateSlider.addEventListener('input', updateTimeValue);
-    lifeExtensionSlider.addEventListener('input', updateHealthRoi);
-    qolMultiplierSlider.addEventListener('input', updateHealthRoi);
-    baseProdSlider.addEventListener('input', updateProductivityMultiplier);
-}
-
-function updateTimeValue() {
-    const hourlyRate = parseInt(document.getElementById('hourly-rate').value);
-    const timeValue = 65 * 52 * hourlyRate;
-    
-    document.getElementById('hourly-rate-display').textContent = formatCurrency(hourlyRate);
-    document.getElementById('hourly-rate-calc').textContent = formatCurrency(hourlyRate);
-    document.getElementById('time-value-result').textContent = formatCurrency(timeValue);
-}
-
-function updateHealthRoi() {
-    const lifeExtension = parseInt(document.getElementById('life-extension').value);
-    const qolMultiplier = parseInt(document.getElementById('qol-multiplier').value);
-    const healthRoi = 35 * lifeExtension * qolMultiplier;
-    
-    document.getElementById('life-extension-display').textContent = lifeExtension;
-    document.getElementById('qol-multiplier-display').textContent = formatCurrency(qolMultiplier);
-    document.getElementById('life-extension-calc').textContent = lifeExtension;
-    document.getElementById('qol-multiplier-calc').textContent = formatCurrency(qolMultiplier);
-    document.getElementById('health-roi-result').textContent = formatCurrency(healthRoi);
-}
-
-function updateProductivityMultiplier() {
-    const baseProd = parseInt(document.getElementById('base-prod').value);
-    const enhancedOutput = baseProd * (1 + 30 / 100);
-    
-    document.getElementById('base-prod-display').textContent = baseProd;
-    document.getElementById('base-prod-calc').textContent = baseProd;
-    document.getElementById('productivity-result').textContent = formatNumber(Math.round(enhancedOutput));
-}
-
-// Chart initialization
-function initializeChart() {
-    const ctx = document.getElementById('progressionChart').getContext('2d');
-    
-    progressionChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: monthlyProgressionData.map(d => `Month ${d.month}`),
-            datasets: [
-                {
-                    label: 'Cumulative Hours Saved',
-                    data: monthlyProgressionData.map(d => d.hours),
-                    borderColor: '#38bdf8',
-                    backgroundColor: 'rgba(56, 189, 248, 0.1)',
-                    yAxisID: 'y',
-                    tension: 0.4
-                },
-                {
-                    label: 'Net Financial Gain ($)',
-                    data: monthlyProgressionData.map(d => d.financial),
-                    borderColor: '#4ade80',
-                    backgroundColor: 'rgba(74, 222, 128, 0.1)',
-                    yAxisID: 'y',
-                    tension: 0.4
-                },
-                {
-                    label: 'Productivity Score',
-                    data: monthlyProgressionData.map(d => d.productivity),
-                    borderColor: '#a78bfa',
-                    backgroundColor: 'rgba(167, 139, 250, 0.1)',
-                    yAxisID: 'y1',
-                    tension: 0.4
-                },
-                {
-                    label: 'Health Score',
-                    data: monthlyProgressionData.map(d => d.health),
-                    borderColor: '#f472b6',
-                    backgroundColor: 'rgba(244, 114, 182, 0.1)',
-                    yAxisID: 'y1',
-                    tension: 0.4
-                },
-                {
-                    label: 'Mood Score',
-                    data: monthlyProgressionData.map(d => d.mood),
-                    borderColor: '#facc15',
-                    backgroundColor: 'rgba(250, 204, 21, 0.1)',
-                    yAxisID: 'y1',
-                    tension: 0.4
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            interaction: {
-                mode: 'index',
-                intersect: false,
-            },
-            scales: {
-                x: {
-                    display: true,
-                    title: {
-                        display: true,
-                        text: 'Month',
-                        color: '#9ca3af'
-                    },
-                    ticks: {
-                        color: '#9ca3af'
-                    },
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'
-                    }
-                },
-                y: {
-                    type: 'linear',
-                    display: true,
-                    position: 'left',
-                    title: {
-                        display: true,
-                        text: 'Cumulative Values',
-                        color: '#9ca3af'
-                    },
-                    ticks: {
-                        color: '#9ca3af',
-                        callback: function(value) {
-                            return formatNumber(value);
-                        }
-                    },
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'
-                    }
-                },
-                y1: {
-                    type: 'linear',
-                    display: true,
-                    position: 'right',
-                    title: {
-                        display: true,
-                        text: 'Scores',
-                        color: '#9ca3af'
-                    },
-                    ticks: {
-                        color: '#9ca3af'
-                    },
-                    grid: {
-                        drawOnChartArea: false,
-                        color: 'rgba(255, 255, 255, 0.1)'
-                    }
-                }
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        color: '#d1d5db',
-                        padding: 20
-                    }
-                },
-                tooltip: {
-                    backgroundColor: 'rgba(31, 41, 55, 0.8)',
-                    titleColor: '#d1d5db',
-                    bodyColor: '#d1d5db',
-                    borderColor: 'rgba(255, 255, 255, 0.2)',
-                    borderWidth: 1,
-                    callbacks: {
-                        label: function(context) {
-                            let label = context.dataset.label || '';
-                            if (label) {
-                                label += ': ';
-                            }
-                            if (context.dataset.label === 'Net Financial Gain ($)') {
-                                label += formatCurrency(context.parsed.y);
-                            } else {
-                                label += formatNumber(context.parsed.y);
-                            }
-                            return label;
-                        }
-                    }
-                }
-            }
-        }
-    });
-}
+render();
 </script>
- </body>
+</body>
 </html>
